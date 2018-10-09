@@ -1,4 +1,4 @@
-package com.qilixxx.controller;
+package com.qilixxx.shareAct.controller;
 
 import org.springframework.stereotype.Controller;
 
