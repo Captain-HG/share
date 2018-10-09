@@ -19,11 +19,11 @@ import javax.sql.DataSource;
 public class DataSourceConfiguration {
     @Value("${spring.datasource.type}")
     private Class<? extends DataSource> dataSourceType;
-    
+
     @Bean(name = "masterDataSource")
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.master")
-    public DataSource masterDataSource(){
+    public DataSource masterDataSource() {
         return DataSourceBuilder.create().type(dataSourceType).build();
     }
 }
