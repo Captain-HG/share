@@ -1,0 +1,87 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- templatemo 418 form pack -->
+    <!--
+    Form Pack
+    http://www.templatemo.com/preview/templatemo_418_form_pack
+    -->
+    <title>分享页面</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <style type="text/css">
+        table {
+            table-layout: fixed;
+        }
+
+        #td1 {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+
+
+
+    <script type="text/javascript">
+        $(function() {
+
+            $("#id1").click(function() {
+                var value=$("#td1 a").html();
+                $("textarea").text(value);
+                var ele = document.getElementById("text");
+                ele.select();
+                document.execCommand("Copy");
+                alert("复制成功");
+            });
+        });
+    </script>
+</head>
+
+<body class="templatemo-bg-gray">
+<h1>分享给朋友</h1>
+<h2><span class="gray">通过</span>地址<span class="gray">或</span><span class="green">二维码</span></h2>
+<div class="container center-block templatemo-form-list-container templatemo-container">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>方式：</th>
+                <th>推广链接</th>
+                <th class="text-right" style="white-space:nowrap">复制或下载</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>地址：</td>
+                <td id="td1">
+                    <a th:href="${url}" th:text="${url}" id="jumpId"></a>
+                </td>
+                <td class="text-right">
+                    <button id="id1" class="btn btn-info">复制</button>
+                </td>
+            </tr>
+            <tr>
+                <td>二维码：</td>
+                <td style="white-space:nowrap"><img th:src="@{qrcode(content=${guid})}" /></td>
+                <td class="text-right">
+                    <a th:href="@{qrcode(content=${guid})}" download="qrcode.png"><button id="id2" class="btn btn-info">下载</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<textarea  style=" opacity:0; align-content: center;"  name="text" id="text"></textarea>
+
+</body>
+
+</html>

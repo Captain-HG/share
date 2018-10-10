@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head >
+<title>登陆页面</title>
+<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Simple Signin Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+<!-- Meta tag Keywords -->
+<!-- css files -->
+<link rel="stylesheet" href="css/style.css"
+	type="text/css" media="all" />
+<!-- Style-CSS -->
+<link rel="stylesheet" href="css/2font-awesome.css">
+<!-- Font-Awesome-Icons-CSS -->
+<!-- //css files -->
+<!-- web-fonts -->
+<link href="//fonts.googleapis.com/css?family=Play:400,700"
+	rel="stylesheet">
+<link
+	href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+	rel="stylesheet">
+	<script type="text/javascript" src="js\jquery-1.11.0.js"></script>
+<!-- //web-fonts -->
+	<script>
+
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+	</script>
+</head>
+
+<body>
+	<!--header-->
+	<div class="header-w3l">
+		<h1>
+			<font color="#125ACD">源客推广</font>
+		</h1>
+	</div>
+	<!--//header-->
+	<div class="main-content-agile">
+		<div class="sub-main-w3">
+			<h2>登陆</h2>
+			<div style=" opacity:0;" id="loginid" th:text="${loginMsg}" ></div>
+			<form th:action="loginSure" method="post">
+				<label>账号：</label>
+				<div class="pom-agile">
+					<span class="fa fa-mobile" aria-hidden="true"></span> <input
+						placeholder="Account" name="account" class="account" type="text"
+						required>
+				</div>
+				<label>密码：</label>
+				<div class="pom-agile">
+					<span class="fa fa-key" aria-hidden="true"></span> <input
+						placeholder="Password" name="password" class="password"
+						type="password" required>
+				</div>
+				<div class="sub-w3l" align="right">
+					<a href="register">新用户注册</a>
+					<div class="clear"></div>
+				</div>
+				<div class="right-w3l">
+					<input type="submit" value="立即登陆">
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--//main-->
+	<!--footer-->
+	<div class="footer">
+		<p>
+			本平台适用于网络营销与宣传 | 详情请咨询 <a href="http://www.qilinxx.com/">麒麟信息</a>
+		</p>
+	</div>
+	<!--//footer-->
+</body>
+<script type="text/javascript">
+	console.log($("#loginid").text());
+    if($("#loginid").text()!=""){
+        alert($("#loginid").text());
+    }
+</script>
+</html>

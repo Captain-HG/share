@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<title>个人主页</title>
+		<!-- metatags-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<!-- Meta tag Keywords -->
+		<!-- css files -->
+		<link href="css/homeStyle.css" rel="stylesheet" type="text/css" media="all" />
+		<!--stylesheet-css-->
+		<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
+		<link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+		<link rel="stylesheet" href="css/bc.grid-1.0.0.min.css"/>
+		<script src="js/bc.grid.min.js"></script>
+		<!-- //css files -->
+		<style type="text/css">
+			#h1 {
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+		</style>
+		
+	</head>
+
+	<body class="templatemo-bg-gray">
+		<h1 id="h1" style="margin-bottom: 40px; color: white; font-weight: bold;"><font color="#0080FF"></font>个人主页</h1>
+
+		<div class="w3l-main" >
+
+			<div class="container center-block templatemo-form-list-container templatemo-container">
+				<div class="row">
+
+					<div class="col-lg-10 col-md-9 col-sm-9 col-xs-9">共邀请 <u th:text="${total}"></u> 人</div>
+					<div class="col-lg-2 col-md-3 col-sm-3 col-xs-3">
+						<a href="share" class="btn btn-info"><i>分享</i></a>
+					</div>
+				</div>
+
+				<table class="table table-striped table-hover" id="box">
+					<thead>
+						<tr>
+							<th>邀请人</th>
+							<th>被邀人</th>
+							<td align="center" style="font-weight: bold;">日期</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="relation,interState : ${scpageInfoList}">
+							<td th:text="${relation.inviterName}"></td>
+							<td th:text="${relation.invitedName}"></td>
+							<td align="center" th:text="${timeTrans.stampToTime(relation.stamp)}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!--</table>-->
+
+
+				<div class="row" style="margin-top: 15px;">
+					<div class="col-lg-7 col-md-5 col-sm-5 col-xs-4">共 <u th:text="${totalPages}"></u> 页</div>
+					<div class="col-lg-5 col-md-7 col-sm-7 col-xs-8" align="left">
+						<a id="previous" class="btn btn-default" th:href="@{'home?pageNum='+${pageNum-1}}"><i>上一页</i></a>
+						&nbsp当前页:<span id="span1"  th:text="${pageNum}"></span>&nbsp
+						<a id="next" class="btn btn-default" th:if="${not isLastPage}" th:href="@{'home?pageNum='+${pageNum+1}}"><i>下一页</i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+
+</html>
