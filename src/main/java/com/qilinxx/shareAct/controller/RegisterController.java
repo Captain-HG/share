@@ -27,16 +27,17 @@ public class RegisterController {
     }
 
     /**
-     * 注册
+     * 注册,有密码的双重确认，和账号的唯一再确认
      * @param account  账号
      * @param password  密码
      * @param repassword 密码2
-     * @param name 名字
+     * @param username 名字
      * @return
      */
       @RequestMapping("registerUserSure")
-    public String registerSure(String account,String password,String repassword,String name){
+    public String registerSure(String account,String password,String repassword,String username,String state){
           String str="";
+          System.out.println(account+password+repassword+username);
           if (password.equals(repassword)){
               User user = userService.selectByAccount(account);
               if (user==null)
@@ -44,15 +45,22 @@ public class RegisterController {
                   User user1 = new User();
                   user1.setuAccount(account);
                   user1.setuPassword(password);
-                  user.setuName(name);
-                  int i = userService.registerUser(user1);
+                  user1.setuName(username);
+                  if (state!=null){
+                      user1.setuState(state);
+                  }
+                  else {
+                      user1.setuState("1");
+                  }
+                  System.out.println(user1);
+                 userService.registerUser(user1);
                   str="login";
               }else {
-              str="register";
+              str="registerUser";
               }
           }
           else {
-              str = "register";
+              str = "registerUser";
           }
           return str;
       }
@@ -62,7 +70,7 @@ public class RegisterController {
           String str="";
         User user = userService.selectByAccount(account);
         if (user==null){
-            str="ture";//账号未存在
+            str="true";//账号未存在
         }else{
             str="error";//账号已存在
         }

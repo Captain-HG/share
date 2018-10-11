@@ -120,20 +120,20 @@ public class IndexController {
         return "backstage/member-record-share";
     }
 
-    @RequestMapping("user-add.html")
-    public String showUserAdd() {
-        return "backstage/user-add";
-    }
+//    @RequestMapping("user-add.html")
+//    public String showUserAdd() {
+//        return "backstage/user-add";
+//    }
 
-    @RequestMapping("user-list.html")
-    public String showUserList() {
-        return "backstage/user-list";
-    }
-
-    @RequestMapping("user-password-edit.html")
-    public String showUserPasswordEdit() {
-        return "backstage/user-password-edit";
-    }
+//    @RequestMapping("user-list.html")
+//    public String showUserList() {
+//        return "backstage/user-list";
+//    }
+//
+//    @RequestMapping("user-password-edit.html")
+//    public String showUserPasswordEdit() {
+//        return "backstage/user-password-edit";
+//    }
 
     @RequestMapping("user-show.html")
     public String showUserShow() {
@@ -209,10 +209,10 @@ public class IndexController {
         return "backstage/member-show";
     }
 //user-edit.html
-    @RequestMapping("user-edit.html")
-    public String user_edit() {
-    return "backstage/member-add";
-}
+//    @RequestMapping("user-edit.html")
+//    public String user_edit() {
+//    return "backstage/member-add";
+//}
     @RequestMapping("index-2.html")
     public String index_2() {
         return "backstage/index-2";
