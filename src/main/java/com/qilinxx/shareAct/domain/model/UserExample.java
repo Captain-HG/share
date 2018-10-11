@@ -444,6 +444,76 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andUStateIsNull() {
+            addCriterion("u_state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateIsNotNull() {
+            addCriterion("u_state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateEqualTo(String value) {
+            addCriterion("u_state =", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateNotEqualTo(String value) {
+            addCriterion("u_state <>", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateGreaterThan(String value) {
+            addCriterion("u_state >", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateGreaterThanOrEqualTo(String value) {
+            addCriterion("u_state >=", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateLessThan(String value) {
+            addCriterion("u_state <", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateLessThanOrEqualTo(String value) {
+            addCriterion("u_state <=", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateLike(String value) {
+            addCriterion("u_state like", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateNotLike(String value) {
+            addCriterion("u_state not like", value, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateIn(List<String> values) {
+            addCriterion("u_state in", values, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateNotIn(List<String> values) {
+            addCriterion("u_state not in", values, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateBetween(String value1, String value2) {
+            addCriterion("u_state between", value1, value2, "uState");
+            return (Criteria) this;
+        }
+
+        public Criteria andUStateNotBetween(String value1, String value2) {
+            addCriterion("u_state not between", value1, value2, "uState");
+            return (Criteria) this;
+        }
+
         public Criteria andUBackupIsNull() {
             addCriterion("u_backup is null");
             return (Criteria) this;

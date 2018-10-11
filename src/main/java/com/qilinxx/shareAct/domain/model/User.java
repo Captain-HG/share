@@ -21,6 +21,9 @@ public class User {
     @Column(name = "u_create_time")
     private Integer uCreateTime;
 
+    @Column(name = "u_state")
+    private String uState;
+
     @Column(name = "u_backup")
     private String uBackup;
 
@@ -64,6 +67,14 @@ public class User {
         this.uCreateTime = uCreateTime;
     }
 
+    public String getuState() {
+        return uState;
+    }
+
+    public void setuState(String uState) {
+        this.uState = uState == null ? null : uState.trim();
+    }
+
     public String getuBackup() {
         return uBackup;
     }
@@ -80,6 +91,7 @@ public class User {
                 ", uPassword='" + uPassword + '\'' +
                 ", uName='" + uName + '\'' +
                 ", uCreateTime=" + uCreateTime +
+                ", uState='" + uState + '\'' +
                 ", uBackup='" + uBackup + '\'' +
                 '}';
     }
