@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.qilixxx.shareAct.domain.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.qilixxx.shareAct.domain.model.User">
+<mapper namespace="com.qilinxx.shareAct.domain.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.qilinxx.shareAct.domain.model.User">
     <id column="u_id" jdbcType="VARCHAR" property="uId" />
     <result column="u_account" jdbcType="VARCHAR" property="uAccount" />
     <result column="u_password" jdbcType="VARCHAR" property="uPassword" />
@@ -71,4 +71,13 @@
   <sql id="Base_Column_List">
     u_id, u_account, u_password, u_name, u_create_time, u_state, u_backup
   </sql>
+<<<<<<< HEAD
+=======
+  <select id="selectByAccountAndPassword" resultMap="BaseResultMap">
+    SELECT * FROM user WHERE  u_account=#{uAccount} AND u_password=#{uPassword}
+  </select>
+  <select id="selectByAccount" resultMap="BaseResultMap">
+    SELECT * FROM user WHERE  u_account=#{accuont}
+  </select>
+>>>>>>> origin/master
 </mapper>

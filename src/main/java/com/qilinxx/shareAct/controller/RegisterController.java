@@ -30,7 +30,7 @@ public class RegisterController {
      * 注册
      * @param account  账号
      * @param password  密码
-     * @param password2 密码2
+     * @param repassword 密码2
      * @param name 名字
      * @return
      */

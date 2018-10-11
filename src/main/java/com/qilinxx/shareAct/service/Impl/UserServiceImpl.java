@@ -39,12 +39,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> selectByAccountAndPassword(String account, String password) {
-        HashMap<String, Object> map = new HashMap<>();
         User user=new User();
         user.setuAccount(account);
         user.setuPassword(password);
-        map.put("account",account);
-        map.put("password",password);
         List<User> userList = userMapper.selectByAccountAndPassword(user);
         System.out.println(userList);
         return  userList;

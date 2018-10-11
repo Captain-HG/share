@@ -53,12 +53,6 @@ public class LoginController {
         }
     }
 
-         @RequestMapping("loginTest/{account}")
-         @ResponseBody
-    public  User loginTest(@PathVariable(value = "account") String account){
-        User user = userService.selectByAccount(account);
-        System.out.println(user);
-        return user;
-        }
+
 }
 
