@@ -71,13 +71,11 @@
   <sql id="Base_Column_List">
     u_id, u_account, u_password, u_name, u_create_time, u_state, u_backup
   </sql>
-<<<<<<< HEAD
-=======
+
   <select id="selectByAccountAndPassword" resultMap="BaseResultMap">
     SELECT * FROM user WHERE  u_account=#{uAccount} AND u_password=#{uPassword}
   </select>
   <select id="selectByAccount" resultMap="BaseResultMap">
     SELECT * FROM user WHERE  u_account=#{accuont}
   </select>
->>>>>>> origin/master
 </mapper>
