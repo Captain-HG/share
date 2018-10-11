@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface UserMapper extends Mapper<User> {
 
-    List<User> selectByAccountAndPassword(HashMap<String,Object> map);
-
-    User selectByAccount();
+    //List<User> selectByAccountAndPassword(HashMap<String,Object> map);
+    List<User> selectByAccountAndPassword(User user);
+    User selectByAccount(String account);
 }
