@@ -129,11 +129,11 @@ public class IndexController {
 //    public String showUserList() {
 //        return "backstage/user-list";
 //    }
-//
-//    @RequestMapping("user-password-edit.html")
-//    public String showUserPasswordEdit() {
-//        return "backstage/user-password-edit";
-//    }
+
+    @RequestMapping("user-password-edit.html")
+    public String showUserPasswordEdit() {
+        return "backstage/user-password-edit";
+    }
 
     @RequestMapping("user-show.html")
     public String showUserShow() {
@@ -204,10 +204,10 @@ public class IndexController {
     public String showCharts7() {
         return "backstage/charts-7";
     }
-    @RequestMapping("member-show.html")
-    public String member_Show() {
-        return "backstage/member-show";
-    }
+//    @RequestMapping("member-show.html")
+//    public String member_Show() {
+//        return "backstage/member-show";
+//    }
 //user-edit.html
 //    @RequestMapping("user-edit.html")
 //    public String user_edit() {

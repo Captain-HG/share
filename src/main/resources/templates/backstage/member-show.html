@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -31,7 +31,7 @@
 	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span class="f-23" style="font-size: 36px;margin-left: 22px">张三</span>
+			<span class="f-23" style="font-size: 36px;margin-left: 22px" th:text="${provide.pName}">张三</span>
 			<!--<span class="pl-10 f-12">余额：40</span>-->
 		</dt>
 		<!--<dd class="pt-10 f-12" style="margin-left:0">商家简介:这家伙很懒，什么也没有留下</dd>-->
@@ -42,11 +42,11 @@
 		<tbody>
 			<tr>
 				<th class="text-r" width="80">账号：</th>
-				<td>男</td>
+				<td th:text="${provide.pAccount}">男</td>
 			</tr>
 			<tr>
 				<th class="text-r">密码：</th>
-				<td>13000000000</td>
+				<td th:text="${provide.pPassword}">13000000000</td>
 			</tr>
 			<!--<tr>-->
 				<!--<th class="text-r">邮箱：</th>-->
@@ -54,15 +54,15 @@
 			<!--</tr>-->
 			<tr>
 				<th class="text-r">地址：</th>
-				<td>北京市 海淀区</td>
+				<td th:text="${provide.pAddress}">北京市 海淀区</td>
 			</tr>
 			<tr>
 				<th class="text-r">注册时间：</th>
-				<td>2014.12.20</td>
+				<td th:text="${provide.pCreateTime}">2014.12.20</td>
 			</tr>
 			<tr>
 				<th class="text-r">是否审核：</th>
-				<td>已通过审核</td>
+				<td th:text="${provide.pState}">已通过审核</td>
 			</tr>
 		</tbody>
 	</table>
