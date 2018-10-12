@@ -34,21 +34,26 @@
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="username" name="uName">
+			<input type="text" class="input-text" value="" placeholder="" id="uName" name="uName">
 		</div>
 	</div>
-
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="uAccount" onchange ="ajaxRegister()" >
+			</div>
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" value="" placeholder="" id="upassword" name="uPassword">
+				<input type="password" class="input-text" value="" placeholder="" id="password" name="password">
 			</div>
 		</div>
 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="password" class="input-text" value="" placeholder="" id="repassword" name="repassword">
+				<input type="password" class="input-text" value="" placeholder="" id="rePassword" name="rePassword">
 			</div>
 		</div>
 
@@ -56,21 +61,16 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input value=true name="sState" type="radio" id="state-1" checked>
+					<input value="1" name="sState" type="radio" id="state-1" checked>
 					<label for="state-1">启用</label>
 				</div>
 				<div class="radio-box">
-					<input th:value=false type="radio" id="state-2" name="sState">
+					<input th:value="0" type="radio" id="state-2" name="sState">
 					<label for="state-2">禁用</label>
 				</div>
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="mobile" name="uAccount" th:onchange="'javascript:checkNumber()'">
-			</div>
-		</div>
+
 
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
@@ -91,28 +91,31 @@
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" th:inline="javascript">
-	var fys="error";
-    function checkNumber(){
-        alert("ajax验证");
-         var number=$("#mobile").val();
+<script type="text/javascript">
+	 var fys="error";
+    function ajaxRegister(){
+        var account = $("#mobile").val();
         $.ajax({
-            type: 'POST',
-            url: 'ajaxRegister',
-			data :{"account":number},
-            success: function(str){
-               if(str!="true"){
-                   alert("账号已被注册");
-			   }
-			   else {
-			       fys="true";
-			   }
-            },
-            error:function(data) {
-                console.log(data.msg);
-            },
+            url : "ajaxRegister",
+            data :{"account" : account},
+            success: function(str) {
+                if ("true" != str) {
+                    //帐号已经存在
+                  //  $("#accountId").append("<span> 帐号已经存在。请使用其它帐号！ </span>");
+                    alert("帐号已经存在。请使用其它帐号！");
+                    //定焦
+					fys="error";
+                    $("#mobile").focus();
+                }
+                else {
+
+                    fys="true";
+                    //账号未存在
+                   // $("#accountId span").remove();
+                }
+            }
         });
-	}
+    }
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -127,20 +130,20 @@ $(function(){
                 minlength:2,
                 maxlength:16
             },
-            uPassword:{
+            password:{
                 required:true,
                 minlength:6,
-                maxlength:16,
+                maxlength:16
             },
-            repassword{
+            rePassword:{
                 required:true,
                 minlength:6,
                 maxlength:16,
-                equalTo: "#upassword"
+                equalTo: "#password"
 			},
             uAccount:{
                 required:true,
-                isMobile:true,
+                isMobile:true
             },
 
         },
@@ -149,16 +152,14 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
             if (fys=="true") {
-            $("form").ajaxSubmit(function(data){
-                alert(data);
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('#btn-refresh').click();
-                parent.layer.close(index);
-
-            });
+                $("form").ajaxSubmit(function (data) {
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('#btn-refresh').click();
+                    parent.layer.close(index);
+                });
             }
             else {
-                alert("完善账号");
+                alert("完善信息");
                 return false;
 			}
 		}

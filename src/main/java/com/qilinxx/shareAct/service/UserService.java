@@ -26,5 +26,5 @@ public interface UserService {
     /** 更新对象*/
     void update(User user);
     /** 设置新的密码*/
-    void changePassword(String uId, String newpassword);
+    void changePassword(String uId, String newPassword);
 }

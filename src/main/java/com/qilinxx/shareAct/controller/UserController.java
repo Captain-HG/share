@@ -41,7 +41,6 @@ public class UserController {
     @RequestMapping("stopUser")
     @ResponseBody
     public String stopCourse(String uId, HttpServletRequest request) {
-        System.out.println(uId);
         String str = userService.stopUser(uId);
         System.out.println("禁用信息："+str);
         //logService.insertLog(str,userId(request),userIp(request));
@@ -78,13 +77,18 @@ public class UserController {
 
     /**
      * 用户更新
-     * @param user 用户
+     * @param  uAccount 账号
+     * @param  uId  用户id
+     * @param  uName 用户名
      * @return
      */
      @RequestMapping("userUpdate")
      @ResponseBody
-    public String userUpdate(User user){
-        userService.update(user);
+    public String userUpdate(String uAccount,String uName,String uId){
+         User user = userService.selectById(uId);
+         user.setuAccount(uAccount);
+         user.setuName(uName);
+         userService.update(user);
         return "success";
      }
 
@@ -104,14 +108,14 @@ public class UserController {
     /**
      * 更新密码
      * @param uId 用户id
-     * @param newpassword 新的密码
+     * @param newPassword 新的密码
      * @param request
      * @return
      */
-    @ResponseBody
     @RequestMapping("changePassword")
-    public String changePassword(String uId,String newpassword,HttpServletRequest request){
-        userService.changePassword(uId,newpassword);
+    @ResponseBody
+    public String changePassword(String uId,String newPassword,HttpServletRequest request){
+        userService.changePassword(uId,newPassword);
         return   "success";
     }
 }
