@@ -92,7 +92,9 @@ public class DateKit {
     public static Date dateFormat(String date) {
         return dateFormat(date, "yyyy-MM-dd HH:mm:ss");
     }
-
+    public static Date dateFormat1(String date) {
+        return dateFormat(date, "yyyy-MM-dd HH:mm");
+    }
     public static String dateFormat(Date date, String dateFormat) {
         if(date != null) {
             SimpleDateFormat format = new SimpleDateFormat(dateFormat);

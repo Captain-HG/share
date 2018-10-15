@@ -27,38 +27,41 @@
 	<img class="avatar size-XL l" src="static/h-ui/images/ucnter/avatar-default.jpg">
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
-			<span class="f-23" style="font-size: 36px;margin-left: 22px" th:text="${session.provide.pName}">张三</span>
-			<!--<span class="pl-10 f-12">余额：40</span>-->
+			<span class="f-23" style="font-size: 36px;margin-left: 22px" th:text="${activity.aName}">张三</span>
 		</dt>
-		<!--<dd class="pt-10 f-12" style="margin-left:0">商家简介:这家伙很懒，什么也没有留下</dd>-->
+		<dd class="pt-10 f-12" style="margin-left:0" th:text="${activity.aDetail}"> 商家简介:这家伙很懒，什么也没有留下</dd>
 	</dl>
 </div>
 <div class="pd-20">
 	<table class="table">
 		<tbody>
 			<tr>
-				<th class="text-r" width="80">账号：</th>
-				<td th:text="${session.provide.pAccount}">男</td>
+				<th  width="" class="text-r" >活动名称：</th>
+				<td th:text="${activity.aName}">男</td>
 			</tr>
 			<tr>
-				<th class="text-r">密码：</th>
-				<td th:text="${session.provide.pPassword}">13000000000</td>
+				<th  width="" class="text-r">活动起始时间：</th>
+				<td th:text="${commons.fmtdate(activity.aStartTime)}">13000000000</td>
 			</tr>
-			<!--<tr>-->
-				<!--<th class="text-r">邮箱：</th>-->
-				<!--<td>admin@mail.com</td>-->
-			<!--</tr>-->
-			<tr>
-				<th class="text-r">地址：</th>
-				<td th:text="${session.provide.pAddress}">北京市 海淀区</td>
+			<tr >
+				<th width="" class="text-r">活动截止时间：</th>
+				<td th:text="${commons.fmtdate(activity.aEndTime)}">北京市 海淀区</td>
+			</tr>
+			<tr >
+				<th width="" class="text-r">活动url：</th>
+				<td th:text="${activity.aUrl}">2014.12.20</td>
+			</tr>
+			<tr >
+				<th  width="" class="text-r">活动详情：</th>
+				<td th:text="${activity.aDetail}">已通过审核</td>
 			</tr>
 			<tr>
-				<th class="text-r">注册时间：</th>
-				<td th:text="${session.provide.pCreateTime}">2014.12.20</td>
+				<th width="" class="text-r">创建时间：</th>
+				<td th:text="${commons.fmtdate(activity.aBackup)}">已通过审核</td>
 			</tr>
-			<tr>
-				<th class="text-r">是否审核：</th>
-				<td th:text="${session.provide.pState}">已通过审核</td>
+			<tr >
+				<th width="" class="text-r">状态：</th>
+				<td th:text="${activity.aState}">已通过审核</td>
 			</tr>
 		</tbody>
 	</table>

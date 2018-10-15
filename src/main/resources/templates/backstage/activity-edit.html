@@ -30,76 +30,47 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+	<form th:action="editActivity" method="post" class="form form-horizontal" id="form-member-add">
+		<input type="hidden" name="aId" th:value="${activity.aId}"/>
+		<input type="hidden" name="aPId" th:value="${session.provide.pId}"/>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${session.provide.pName}" placeholder="" id="username" name="username">
-			</div>
-		</div>
-		<!--<div class="row cl">-->
-			<!--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>-->
-			<!--<div class="formControls col-xs-8 col-sm-9 skin-minimal">-->
-				<!--<div class="radio-box">-->
-					<!--<input name="sex" type="radio" id="sex-1" checked>-->
-					<!--<label for="sex-1">男</label>-->
-				<!--</div>-->
-				<!--<div class="radio-box">-->
-					<!--<input type="radio" id="sex-2" name="sex">-->
-					<!--<label for="sex-2">女</label>-->
-				<!--</div>-->
-				<!--<div class="radio-box">-->
-					<!--<input type="radio" id="sex-3" name="sex">-->
-					<!--<label for="sex-3">保密</label>-->
-				<!--</div>-->
-			<!--</div>-->
-		<!--</div>-->
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${session.provide.pAccount}" placeholder="" id="mobile" name="mobile">
+				<input type="text" class="input-text" th:value="${activity.aName}" placeholder="" id="aName" name="aName">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动起始时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="password" id="email" th:value="${session.provide.pPassword}" >
+				<input type="text" name="sStartTime"
+					   th:value="${commons.fmtdate(activity.aStartTime)}"
+					   onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm' })"
+					   id="sStartTime" class="input-text Wdate">
 			</div>
 		</div>
-		<!--<div class="row cl">-->
-			<!--<label class="form-label col-xs-4 col-sm-3">上传头像：</label>-->
-			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">-->
-				<!--<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">-->
-				<!--<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>-->
-				<!--<input type="file" multiple name="file-2" class="input-file">-->
-				<!--</span> </div>-->
-		<!--</div>-->
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在地址：</label>
-			<!--<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">-->
-				<!--<select class="select" size="1" name="city">-->
-					<!--<option value="" selected>请选择城市</option>-->
-					<!--<option value="1">北京</option>-->
-					<!--<option value="2">上海</option>-->
-					<!--<option value="3">广州</option>-->
-				<!--</select>-->
-				<!--</span> -->
-			<!--</div>-->
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动截止时间：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="password" id="email" th:value="${session.provide.pPassword}" >
+				<input type="text" name="sEndTime"
+					   th:value="${commons.fmtdate(activity.aEndTime)}"
+					   onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm' })"
+					   id="sEndTime" class="input-text Wdate">
 			</div>
 		</div>
-		<!--<div class="row cl">-->
-			<!--<label class="form-label col-xs-4 col-sm-3">备注：</label>-->
-			<!--<div class="formControls col-xs-8 col-sm-9">-->
-				<!--<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>-->
-				<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
-			<!--</div>-->
-		<!--</div>-->
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>18位社会统一信用代码：</label>
+			<label class="form-label col-xs-4 col-sm-3">活动url：</label>
+			<div class="formControls col-xs-4 col-sm-1" style="padding-right: 0px">
+				<span style="text-align: center;padding-bottom:4px;padding-top: 4px">http://</span>
+
+			</div>
+			<div class="formControls col-xs-4 col-sm-8" style="padding-left: 0px">
+				<input type="text" class="input-text" placeholder="@" name="aUrl" id="aUrl" th:value="${activity.aUrl}" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动详情：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="password" id="email" th:value="${session.provide.pPermitNumber}" >
+				<input type="text" class="input-text" placeholder="@" name="aDetail" id="aDetail" th:value="${activity.aDetail}" >
 			</div>
 		</div>
 		<div class="row cl">
@@ -157,9 +128,11 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
 			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+            alert(data);
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.$('#btn-refresh').click();
+            parent.layer.close(index);
 		}
 	});
 });

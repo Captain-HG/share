@@ -54,7 +54,7 @@
                 <ul class="cl">
                     <li >欢迎您</li>
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A" th:text="${provide.pName}">hello <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a href="#" class="dropDown_A" th:text="${session.provide.pName}">hello <i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
                             <li><a href="#">切换账户</a></li>
@@ -88,11 +88,6 @@
                 <ul>
                     <li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
                     <li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-                    <!--<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>-->
-                    <!--<li><a data-href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>-->
-                    <!--<li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>-->
-                    <!--<li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>-->
-                    <!--<li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>-->
                 </ul>
             </dd>
         </dl>
@@ -100,13 +95,9 @@
             <dt><i class="Hui-iconfont">&#xe622;</i> 信息管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <!--<li><a data-href="article-add.html" data-title="我的信息" href="javascript:;">我的信息</a>-->
-                    <!--</li>-->
-                    <!--@{'/pageController?pageNum='+${pageNum}}"-->
-                    <!--<li><a data-href="member-show.html" data-title="我的信息" href="javascript:;">我的信息</a>-->
-                    <li><a  th:data-href="@{'/member-show.html?id='+${provide.pId}}" data-title="我的信息" href="javascript:;">我的信息</a>
+                    <li><a  th:data-href="@{'/member-show.html?id='+${session.provide.pId}}" data-title="我的信息" href="javascript:;">我的信息</a>
                     </li>
-                    <li><a th:data-href="@{'/member-edit.html?id='+${provide.pId}}"  data-title="修改信息" href="javascript:;">修改信息</a></li>
+                    <li><a th:data-href="@{'/member-add.html?id='+${session.provide.pId}}"  data-title="修改信息" href="javascript:;">修改信息</a></li>
                 </ul>
             </dd>
         </dl>
@@ -115,7 +106,7 @@
             <dt><i class="Hui-iconfont">&#xe620;</i> 活动管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="member-list.html" data-title="活动管理" href="javascript:void(0)">活动管理</a></li>
+                    <li><a th:data-href="@{'/member-list.html?id='+${session.provide.pId}}"  data-title="活动管理" href="javascript:void(0)">活动管理</a></li>
                     <!--<li><a data-href="product-category.html" data-title="发布活动" href="javascript:void(0)">发布活动</a></li>-->
                     <!--<li><a data-href="product-list.html" data-title="所有活动" href="javascript:void(0)">所有活动</a></li>-->
                 </ul>
@@ -183,7 +174,7 @@
 
     /*个人信息*/
     function myselfinfo() {
-        var id=[[${provide.pId}]];
+        var id=[[${session.provide.pId}]];
         layer.open({
             type: 2,
             area: ['500px', '500px'],

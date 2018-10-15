@@ -90,15 +90,8 @@ public class IndexController {
         return "backstage/product-list";
     }
 
-    @RequestMapping("member-add.html")
-    public String showMemberAdd() {
-        return "backstage/member-add";
-    }
 
-    @RequestMapping("member-list.html")
-    public String showMemberList() {
-        return "backstage/member-list";
-    }
+
 
     @RequestMapping("member-del.html")
     public String showMemberDel() {
