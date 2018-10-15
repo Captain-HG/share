@@ -44,7 +44,7 @@ public class AdminUserController {
      */
     @RequestMapping("admin-stopUser")
     @ResponseBody
-    public String stopCourse(String uId, HttpServletRequest request) {
+    public String stopUser(String uId, HttpServletRequest request) {
         String str = userService.stopUser(uId);
         System.out.println("禁用信息："+str);
         //logService.insertLog(str,userId(request),userIp(request));

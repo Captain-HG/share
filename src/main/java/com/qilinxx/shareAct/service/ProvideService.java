@@ -1,5 +1,6 @@
 package com.qilinxx.shareAct.service;
 
+import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Provide;
 import com.qilinxx.shareAct.domain.model.User;
 

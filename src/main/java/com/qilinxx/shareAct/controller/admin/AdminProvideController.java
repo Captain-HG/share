@@ -57,7 +57,7 @@ public class AdminProvideController {
      */
     @RequestMapping("admin-stopProvide")
     @ResponseBody
-    public String stopCourse(String pId, HttpServletRequest request) {
+    public String stopProvide(String pId, HttpServletRequest request) {
         String str = provideService.stopProvide(pId);
         System.out.println("禁用信息："+str);
         //logService.insertLog(str,userId(request),userIp(request));
@@ -72,7 +72,7 @@ public class AdminProvideController {
      */
     @RequestMapping("admin-startProvide")
     @ResponseBody
-    public String startUser(String pId, HttpServletRequest request) {
+    public String startProvide(String pId, HttpServletRequest request) {
         String str = provideService.startProvide(pId);
         // System.out.println("传过来的语句："+str);
         //  logService.insertLog(str,userId(request),userIp(request));
@@ -86,7 +86,7 @@ public class AdminProvideController {
      * @return  页面跳转
      */
     @RequestMapping("admin-provide-edit.html")
-    public  String  userEdit(String pId,Model model){
+    public  String  provideEdit(String pId,Model model){
         Provide provide = provideService.selectProvideById(pId);
         model.addAttribute("provide",provide);
         return "admin/provide-edit";
@@ -103,7 +103,7 @@ public class AdminProvideController {
      */
     @RequestMapping("admin-provideUpdate")
     @ResponseBody
-    public String userUpdate(String pAccount,String pName,String pId,String pAddress,String pPermitNumber){
+    public String provideUpdate(String pAccount,String pName,String pId,String pAddress,String pPermitNumber){
         Provide provide = provideService.selectProvideById(pId);
        provide.setpAccount(pAccount);
        provide.setpAddress(pAddress);
