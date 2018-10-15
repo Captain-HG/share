@@ -1,63 +1,75 @@
 package com.qilinxx.shareAct.service.Impl;
 
 import com.qilinxx.shareAct.domain.mapper.ActivityMapper;
+import com.qilinxx.shareAct.domain.mapper.ProvideMapper;
 import com.qilinxx.shareAct.domain.model.Activity;
-import com.qilinxx.shareAct.domain.model.ActivityExample;
-import com.qilinxx.shareAct.service.ActivityService;
+import com.qilinxx.shareAct.domain.model.Provide;
+import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
+import com.qilinxx.shareAct.service.ActivityServie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @Auther: 余小北
- * @Date: 2018/10/15 09:57
- * @Description:
- */
 @Service
-public class ActivityServiceImpl implements ActivityService {
+public class ActivityServiceImpl implements ActivityServie {
     @Autowired
-    private ActivityMapper activityMapper;
-    /**
-     *@Author: pengxiaoyu
-     * @Description: 根据商户Id查询所有的Activity
-     * @Param: [pId]
-     * @return: java.util.List<com.qilinxx.shareAct.domain.model.Activity>
-     * @Date: 2018/10/15
-     */
+    ActivityMapper activityMapper;
+    @Autowired
+    ProvideMapper provideMapper;
     @Override
-    public List<Activity> findAllActivitiesById(String pId) {
-        ActivityExample example =new ActivityExample();
-        ActivityExample.Criteria criteria = example.createCriteria();
-        criteria.andAPIdEqualTo(pId);
-        List<Activity> activities = activityMapper.selectByExample(example);
-        return activities;
-    }
-    /**
-     *@Author: pengxiaoyu
-     * @Description: 根据活动Id查询活动详情
-     * @Param: [id]
-     * @return: com.qilinxx.shareAct.domain.model.Activity
-     * @Date: 2018/10/15
-     */
-    @Override
-    public Activity selectActivityById(String id) {
-        ActivityExample example =new ActivityExample();
-        ActivityExample.Criteria criteria = example.createCriteria();
-        criteria.andAIdEqualTo(id);
-        Activity activity=null;
-        List<Activity> activities = activityMapper.selectByExample(example);
-        if(activities!=null && activities.size()>0){
-            activity=activities.get(0);
+    public List<ActivityVO> selectAll() {
+        List<Activity> activityList = activityMapper.selectAll();
+        List<ActivityVO> activityVOArrayList = new ArrayList<>();
+        for(Activity act:activityList){
+            activityVOArrayList.add(improve(act));
         }
-        return activity;
+        return activityVOArrayList;
+    }
+
+    /**
+     * 封装ActivityVo对象
+     * @param activity
+     * @return
+     */
+    private ActivityVO improve(Activity activity){
+        Provide provide = provideMapper.selectByPrimaryKey(activity.getaPId());
+        ActivityVO activityVO = new ActivityVO();
+        activityVO.setActivity(activity);
+        activityVO.setProvide(provide);
+        return activityVO;
+    }
+    @Override
+    public String startActivity(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
+        activity.setaState("1");
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return "审核通过了:"+activity.getaName()+"这项活动";
     }
 
     @Override
-    public Integer stopActivityById(String id) {
-        Activity activity = activityMapper.selectByPrimaryKey(id);
-        //0为待审核，1为正在进行，2为已取消，3为已完成（已过时）
+    public String stopActivity(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
         activity.setaState("2");
-        return activityMapper.updateByPrimaryKeySelective(activity);
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return "取消了:"+activity.getaName()+"这项活动";
+    }
+
+    @Override
+    public String successActivity(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
+        activity.setaState("3");
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return "完成了:"+activity.getaName()+"这项活动";
+    }
+
+    @Override
+    public String examineActivity(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
+        activity.setaState("0");
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return "重新进行审核:"+activity.getaName()+"这项活动";
+
     }
 }

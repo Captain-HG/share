@@ -1,6 +1,7 @@
 package com.qilinxx.shareAct.service.Impl;
 
 import com.qilinxx.shareAct.domain.mapper.ProvideMapper;
+import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Provide;
 import com.qilinxx.shareAct.domain.model.User;
 import com.qilinxx.shareAct.service.ProvideService;
@@ -9,6 +10,7 @@ import com.qilinxx.shareAct.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,5 +76,7 @@ public class ProvideServiceImpl implements ProvideService {
         provideMapper.insertSelective(provide);
         return "新增了商家:"+provide.getpName()+",等待审核";
     }
+
+
 
 }
