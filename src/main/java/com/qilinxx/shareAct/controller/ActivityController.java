@@ -1,7 +1,7 @@
 package com.qilinxx.shareAct.controller;
 
 import com.qilinxx.shareAct.domain.model.Activity;
-import com.qilinxx.shareAct.service.ActivityService;
+import com.qilinxx.shareAct.service.pro.ActivityService;
 import com.qilinxx.shareAct.util.Commons;
 import com.qilinxx.shareAct.util.DateKit;
 import org.springframework.beans.factory.annotation.Autowired;

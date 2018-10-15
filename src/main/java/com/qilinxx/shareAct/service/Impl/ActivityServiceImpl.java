@@ -5,7 +5,7 @@ import com.qilinxx.shareAct.domain.mapper.ProvideMapper;
 import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Provide;
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
-import com.qilinxx.shareAct.service.ActivityServie;
+import com.qilinxx.shareAct.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ActivityServiceImpl implements ActivityServie {
+public class ActivityServiceImpl implements ActivityService {
     @Autowired
     ActivityMapper activityMapper;
     @Autowired
@@ -71,5 +71,12 @@ public class ActivityServiceImpl implements ActivityServie {
         activityMapper.updateByPrimaryKeySelective(activity);
         return "重新进行审核:"+activity.getaName()+"这项活动";
 
+    }
+
+    @Override
+    public ActivityVO selectById(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
+        ActivityVO activityVO = improve(activity);
+        return activityVO;
     }
 }
