@@ -5,7 +5,7 @@ import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
 
 import java.util.List;
 
-public interface ActivityServie {
+public interface ActivityService {
     /** 查找所有的活动 vo*/
     List<ActivityVO> selectAll();
     /** 审核通过该活动*/
@@ -16,4 +16,6 @@ public interface ActivityServie {
     String successActivity(String aId);
     /** 重新审核该活动*/
     String examineActivity(String aId);
+    /** 根据id查询活动对象*/
+    ActivityVO selectById(String aId);
 }

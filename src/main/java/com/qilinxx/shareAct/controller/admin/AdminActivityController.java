@@ -2,7 +2,7 @@ package com.qilinxx.shareAct.controller.admin;
 
 
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
-import com.qilinxx.shareAct.service.ActivityServie;
+import com.qilinxx.shareAct.service.ActivityService;
 import com.qilinxx.shareAct.service.ProvideService;
 import com.qilinxx.shareAct.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 public class AdminActivityController {
     @Autowired
-    ActivityServie activityServie;
+    ActivityService activityServie;
     @Autowired
     ProvideService provideService;
 
@@ -92,8 +92,24 @@ public class AdminActivityController {
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
+
+    /**
+     * 跳转到编辑页面
+     * @param aId 活动id
+     * @param model 传递
+     * @return 编辑页面
+     */
     @RequestMapping("admin-activity-edit.html")
-    public String editActivity(){
+    public String editActivity(String aId,Model model){
+        ActivityVO activityVO = activityServie.selectById(aId);
+        model.addAttribute("activityVO",activityVO);
+        model.addAttribute("commons",new Commons());
         return "admin/activity-edit";
+    }
+    @RequestMapping("admin-updateActivity")
+    @ResponseBody
+    public  String  updateActivity(ActivityVO activityVO){
+
+        return "success";
     }
 }
