@@ -81,16 +81,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User user) {
+	public String  update(User user) {
 		userMapper.updateByPrimaryKeySelective(user);
+		return "更新了:"+user.getuName();
 	}
 
 	@Override
-	public void changePassword(String uId, String newPassword) {
+	public String  changePassword(String uId, String newPassword) {
 		User user = userMapper.selectByPrimaryKey(uId);
 		user.setuPassword(newPassword);
 		userMapper.updateByPrimaryKeySelective(user);
-
+       return "更改了用户:"+user.getuName()+"的密码";
 	}
 
 

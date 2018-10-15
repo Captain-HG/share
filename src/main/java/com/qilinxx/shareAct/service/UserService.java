@@ -24,7 +24,7 @@ public interface UserService {
     /** 启用该用户，根据id*/
     String  startUser(String uId);
     /** 更新对象*/
-    void update(User user);
+    String update(User user);
     /** 设置新的密码*/
-    void changePassword(String uId, String newPassword);
+    String  changePassword(String uId, String newPassword);
 }

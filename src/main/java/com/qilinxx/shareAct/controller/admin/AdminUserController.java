@@ -1,4 +1,4 @@
-package com.qilinxx.shareAct.controller;
+package com.qilinxx.shareAct.controller.admin;
 
 import com.qilinxx.shareAct.domain.model.User;
 import com.qilinxx.shareAct.service.UserService;
@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
+/**
+ * @Auther: lzc
+ * @Date: 2018/10/12 16:07
+ * @Description:
+ */
 @Controller
-public class UserController {
+public class AdminUserController {
     @Autowired
     UserService userService;
     /**
      * 用户列表
      */
-  @RequestMapping("user-list.html")
+  @RequestMapping("admin-user-list.html")
     public  String userList(Model model){
       List<User> userList = userService.selectAll();
       model.addAttribute("userList",userList);
@@ -29,7 +33,7 @@ public class UserController {
     /**
      *跳转添加页面
      */
-    @RequestMapping("user-add.html")
+    @RequestMapping("admin-user-add.html")
     public String  userAdd(){
         return "admin/user-add";
     }
@@ -38,7 +42,7 @@ public class UserController {
      * @param uId 用户id
      * @return 成功
      */
-    @RequestMapping("stopUser")
+    @RequestMapping("admin-stopUser")
     @ResponseBody
     public String stopCourse(String uId, HttpServletRequest request) {
         String str = userService.stopUser(uId);
@@ -53,7 +57,7 @@ public class UserController {
      * @param uId  用户id
      * @return 成功
      */
-    @RequestMapping("startUser")
+    @RequestMapping("admin-startUser")
     @ResponseBody
     public String startUser(String uId, HttpServletRequest request) {
         String str = userService.startUser(uId);
@@ -68,7 +72,7 @@ public class UserController {
      * @param model 传递
      * @return
      */
-     @RequestMapping("user-edit.html")
+     @RequestMapping("admin-user-edit.html")
     public  String  userEdit(String uId,Model model){
          User user = userService.selectById(uId);
          model.addAttribute("user",user);
@@ -82,14 +86,14 @@ public class UserController {
      * @param  uName 用户名
      * @return
      */
-     @RequestMapping("userUpdate")
+     @RequestMapping("admin-userUpdate")
      @ResponseBody
     public String userUpdate(String uAccount,String uName,String uId){
          User user = userService.selectById(uId);
          user.setuAccount(uAccount);
          user.setuName(uName);
-         userService.update(user);
-        return "success";
+         String s = userService.update(user);
+         return "success";
      }
 
     /**
@@ -98,7 +102,7 @@ public class UserController {
      * @param model 传递
      * @return
      */
-     @RequestMapping("user-change-password.html")
+     @RequestMapping("admin-user-change-password.html")
     public String changeUserPassword(String uId,Model model){
          User user = userService.selectById(uId);
          model.addAttribute("user",user);
@@ -112,7 +116,7 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping("changePassword")
+    @RequestMapping("admin-user-changePassword")
     @ResponseBody
     public String changePassword(String uId,String newPassword,HttpServletRequest request){
         userService.changePassword(uId,newPassword);

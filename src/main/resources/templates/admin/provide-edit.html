@@ -31,11 +31,11 @@
 <body>
 <article class="page-container">
 	<div class="Huiform">
-	<form class="form form-horizontal" id="form-article-add" action="admin-userUpdate" th:method="post" >
+	<form class="form form-horizontal" id="form-article-add" action="admin-provideUpdate" th:method="post" >
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商家名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${user.uName}" placeholder="" id="uNameId" name="uName">
+				<input type="text" class="input-text" th:value="${provide.pName}" placeholder="" id="pName" name="pName">
 			</div>
 
 
@@ -43,15 +43,25 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">账号：</label>
 			<div class="formControls col-xs-5 col-sm-5">
-				<input type="text" class="input-text" th:value="${user.uAccount}" placeholder="" id="uAccount" name="uAccount" onchange="ajaxRegister()">
+				<input type="text" class="input-text" th:value="${provide.pAccount}" placeholder="" id="pAccount" name="pAccount" >
 			</div>
-
 		</div>
-
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商家地址：</label>
+			<div class="formControls col-xs-5 col-sm-5">
+				<input type="text" class="input-text" th:value="${provide.pAddress}" placeholder="" id="pAddress" name="pAddress" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">商家码：</label>
+			<div class="formControls col-xs-5 col-sm-5">
+				<input type="text" class="input-text" th:value="${provide.pPermitNumber}" placeholder="" id="pPermitNumber" name="pPermitNumber" >
+			</div>
+		</div>
 
 		<div class="row cl">
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="uId" name="uId" class="input-text " th:value="${user.uId}" th:hidden="true">
+				<input type="text" id="pId" name="pId" class="input-text " th:value="${provide.pId}" th:hidden="true">
 			</div>
 		</div>
 		<div class="row cl">
@@ -81,7 +91,7 @@
 <script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 
 <script type="text/javascript" th:inline="javascript">
-    var fys="error";
+    var fys="true";
     function ajaxRegister(){
         var account = $("#uAccount").val();
         var uId= $("#uId").val();
@@ -99,7 +109,7 @@
 
                 }
                 else {
-                    //alert("未存在");
+                   // alert("未存在");
                      fys="true";
                     //账号未存在
                     // $("#accountId span").remove();
@@ -115,16 +125,26 @@
 
         $("#form-article-add").validate({
             rules:{
-                uName :{
+                pName :{
                     required:true,
                     minlength:2,
                     maxlength:16
                 },
-                uAccount :{
+                pAccount :{
                     required:true,
                     isMobile:true
 				},
-
+                pAddress:{
+                    required:true,
+                    minlength:6,
+                    maxlength:16
+                },
+                pPermitNumber:{
+                    required:true,
+                    number:true,
+                    minlength:12,
+                    maxlength:12
+                },
 			},
             onkeyup:false,
             focusCleanup:true,
@@ -140,7 +160,7 @@
                     });
                 }
                 else {
-                    alert("请确认信息，出现问题");
+                    alert("确认信息");
                     return false;
                 }
             }

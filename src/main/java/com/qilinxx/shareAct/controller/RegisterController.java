@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @Auther: lzc
+ * @Date: 2018/10/12 16:07
+ * @Description:
+ */
 @Controller
 public class RegisterController {
     @Autowired
