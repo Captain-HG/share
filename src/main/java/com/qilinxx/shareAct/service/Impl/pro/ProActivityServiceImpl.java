@@ -3,7 +3,7 @@ package com.qilinxx.shareAct.service.Impl.pro;
 import com.qilinxx.shareAct.domain.mapper.ActivityMapper;
 import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.ActivityExample;
-import com.qilinxx.shareAct.service.pro.ActivityService;
+import com.qilinxx.shareAct.service.pro.ProActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class ActivityServiceImpl implements ActivityService {
+public class ProActivityServiceImpl implements ProActivityService {
     @Autowired
     private ActivityMapper activityMapper;
     /**
@@ -59,4 +59,10 @@ public class ActivityServiceImpl implements ActivityService {
         //0为待审核，1为正在进行，2为已取消，3为已完成（已过时）
         activity.setaState("2");
         return activityMapper.updateByPrimaryKeySelective(activity);
-    }}
+    }
+
+    @Override
+    public int updateActivity(Activity activity) {
+        return activityMapper.updateByPrimaryKeySelective(activity);
+    }
+}

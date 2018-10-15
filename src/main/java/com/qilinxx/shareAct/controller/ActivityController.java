@@ -1,7 +1,7 @@
 package com.qilinxx.shareAct.controller;
 
 import com.qilinxx.shareAct.domain.model.Activity;
-import com.qilinxx.shareAct.service.pro.ActivityService;
+import com.qilinxx.shareAct.service.pro.ProActivityService;
 import com.qilinxx.shareAct.util.Commons;
 import com.qilinxx.shareAct.util.DateKit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.Date;
 @Controller
 public class ActivityController {
     @Autowired
-    private ActivityService activityService;
+    ProActivityService proActivityService;
     /** 
     *@Author: pengxiaoyu 
     * @Description: 查看活动详情 
@@ -30,7 +30,7 @@ public class ActivityController {
     */ 
     @RequestMapping("activity-show.html")
     public String activity_show(String id, Model model){
-        Activity activty=activityService.selectActivityById(id);
+        Activity activty= proActivityService.selectActivityById(id);
         model.addAttribute("activity",activty);
         model.addAttribute("commons",new Commons());
         return "backstage/activity-show.html";
@@ -45,7 +45,7 @@ public class ActivityController {
     @ResponseBody
     @RequestMapping("stopActivty")
     public String stopActivity(String id ){
-        Integer i=activityService.stopActivityById(id);
+        Integer i= proActivityService.stopActivityById(id);
         if(i>0){
             return "取消成功";
         }else{
@@ -61,7 +61,7 @@ public class ActivityController {
     */
     @RequestMapping("activity-edit.html")
     public String activityEdit(String id,Model model){
-        Activity activity = activityService.selectActivityById(id);
+        Activity activity = proActivityService.selectActivityById(id);
         model.addAttribute("activity",activity);
         model.addAttribute("commons",new Commons());
         return "backstage/activity-edit.html";
@@ -78,20 +78,18 @@ public class ActivityController {
     public String editActivity(Activity activity,String sStartTime,String sEndTime){
         activity.setaState("0");
         System.out.println(sStartTime);
-
-
         Date date = DateKit.dateFormat1(sStartTime);
-
-
         System.out.println(date);
         Integer aStartTime = (int)DateKit.getUnixTimeLong(date);
-
-
         activity.setaStartTime(aStartTime);
-       date = DateKit.dateFormat1(sEndTime);
-       Integer aEndTime = (int)DateKit.getUnixTimeLong(date);
-       activity.setaEndTime(aEndTime);
-        System.out.println(activity);
+        date = DateKit.dateFormat1(sEndTime);
+        Integer aEndTime = (int)DateKit.getUnixTimeLong(date);
+        activity.setaEndTime(aEndTime);
+      //更新到数据库
+        int i= proActivityService.updateActivity(activity);
+        if(i>0){
+            return "修改成功";
+        }
         return "修改成功";
     }
 }

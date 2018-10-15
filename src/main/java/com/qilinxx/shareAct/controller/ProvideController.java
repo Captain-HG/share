@@ -2,16 +2,12 @@ package com.qilinxx.shareAct.controller;
 
 import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Provide;
-import com.qilinxx.shareAct.service.ActivityService;
 import com.qilinxx.shareAct.service.ProvideService;
+import com.qilinxx.shareAct.service.pro.ProActivityService;
 import com.qilinxx.shareAct.util.Commons;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -25,8 +21,9 @@ import java.util.List;
 public class ProvideController {
     @Autowired
     ProvideService provideService;
+
     @Autowired
-    ActivityService activityService;
+    ProActivityService proActivityService;
 
     /** 
     *@Author: pengxiaoyu 
@@ -75,7 +72,7 @@ public class ProvideController {
         HttpSession session=request.getSession();
         Provide provide = (Provide)session.getAttribute("provide");
         //根据商户下所有的活动
-        List<Activity> activities=activityService.findAllActivitiesById(provide.getpId());
+        List<Activity> activities= proActivityService.findAllActivitiesById(provide.getpId());
         request.setAttribute("activities",activities);
         request.setAttribute("common",new Commons());
         return "backstage/member-list";

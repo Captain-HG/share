@@ -9,7 +9,7 @@ import java.util.List;
  * @Date: 2018/10/15 16:47
  * @Description:
  */
-public interface ActivityService {
+public interface ProActivityService {
     /**
      *@Author: pengxiaoyu
      * @Description: 根据商户Id查询所有的Activity
@@ -28,4 +28,6 @@ public interface ActivityService {
     Activity selectActivityById(String id);
 
     Integer stopActivityById(String id);
+
+    int updateActivity(Activity activity);
 }

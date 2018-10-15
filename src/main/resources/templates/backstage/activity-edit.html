@@ -129,10 +129,13 @@ $(function(){
 		submitHandler:function(form){
 			//$(form).ajaxSubmit();
 			//parent.$('.btn-refresh').click();
-            alert(data);
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.$('#btn-refresh').click();
-            parent.layer.close(index);
+            $("form").ajaxSubmit(function(data){
+                alert(data);
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('#btn-refresh').click();
+                parent.layer.close(index);
+
+            });
 		}
 	});
 });
