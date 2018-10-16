@@ -11,6 +11,7 @@
     <result column="d_invite_people" jdbcType="INTEGER" property="dInvitePeople" />
     <result column="d_point" jdbcType="INTEGER" property="dPoint" />
     <result column="d_backup" jdbcType="VARCHAR" property="dBackup" />
+    <result column="d_a_id" jdbcType="VARCHAR" property="dAId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,6 +73,13 @@
   </sql>
   <sql id="Base_Column_List">
     d_id, d_u_id, d_create_time, d_update_time, d_had_draw, d_draw_number, d_invite_people, 
-    d_point, d_backup
+    d_point, d_backup, d_a_id
   </sql>
+  <select id="selectDrawByUidAid" resultMap="BaseResultMap">
+    SELECT * FROM draw WHERE d_u_id=#{uid}
+  </select>
+
+  <select id="selectAidByUid" resultType="String">
+    SELECT d_a_id FROM draw WHERE d_u_id=#{uid}
+  </select>
 </mapper>

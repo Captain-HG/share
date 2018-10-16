@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no">
+    <title>转出大惊喜</title>
+
+    <script type="text/javascript" th:src="@{/js/simpl-fontSize.min.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/css/simpl-public.min.css}">
+    <link rel="stylesheet" th:href="@{/css/compound.min.css}">
+
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/easing.min.js}"></script>
+
+</head>
+<body>
+<div style="padding-top: 50px;">
+    <a href="/user/home" style="margin-left:50px">个人情况</a>
+    <a href="#" style="margin-left:50px">排行榜</a>
+    <a href="/user/share" style="padding-left:200px">分享</a>
+</div>
+<div class="com-main">
+    <div class="title"></div>
+    <ul class="coin">
+        <li class="jd">
+            <h3 id="total" th:text="${point}">250</h3>
+        </li>
+    </ul>
+    <div class="slots">
+        <ul class="clearfix">
+            <li class="fl active" data-type="gb">Are you</li>
+            <li class="fr" data-type="jd">ready?</li>
+        </ul>
+        <h3>抽奖次数：<span style="color:red" id="number" th:text="${lottery}">2</span></h3>
+        <dl class="clearfix">
+            <dd class="fl gb"></dd>
+            <dd class="fl gb"></dd>
+            <dd class="fl gb"></dd>
+        </dl>
+        <div class="play-btn" data-type="gb"></div>
+        <div class="yg"></div>
+        <div class="rule"></div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        //抽奖play按钮
+        $('.com-main .slots .play-btn').click(function () {
+            var draw = document.getElementById("number").innerText;
+            var total = document.getElementById("total").innerText;
+            if (draw < 1) {
+                $.giftWarm("您的次数已用完", '分享给好友，获取更多抽奖机会');
+                return;
+            }
+            var u = 160.4; //盒子的高度
+            //中奖随机数 ,分解金豆获取钢镚'000','111','222'，
+            var random1 = Math.ceil(Math.random() * 3) - 1
+            var random2 = Math.ceil(Math.random() * 3) - 1;
+            var random3 = Math.ceil(Math.random() * 3) - 1;
+            var number = random1 + random2 + random3 + 12;
+            if (number === 18) {
+                number = 66
+            }
+            total = Number(total) + number;
+            var random = random1 + '' + random2 + random3;
+            //在此更新抽奖次数draw和total
+            draw--;
+            submit(draw,total);
+            var _this = $(this);
+            var type = $(this).attr('data-type');
+            if (!_this.hasClass('active')) {
+                _this.addClass('active');
+                $(".com-main .slots dl dd").slots(u, random, function () {
+                    document.getElementById("number").innerText = draw;
+                    document.getElementById("total").innerText = total;
+                    if (draw > 0)
+                        _this.removeClass('active'); //还有抽奖机会移除active
+                    if (number === 36)
+                        $.giftWarm("666大奖", '获得了<span>' + number + '</span>个金豆');
+                    $.giftWarm("恭喜你", '获得了<span>' + number + '</span>个金豆');
+                });
+            }
+        });
+    });
+
+    function submit(draw,total) {
+        $.ajax({
+            url: '/user/updateData', // ajax 请求地址
+            type: 'post',//请求方式 ’GET‘或’POST‘，默认为’GET‘。
+            data: {'draw':draw,'total':total},
+            dataType: "json",//根据返回数据类型，可以有如下数据可选：xml html script json jsonp text
+            //请求成功后的回调函数
+            success: function (msg) {
+               if(msg.state==='ok'){
+               }
+            },
+            //请求失败时调用此函数。有以下三个参数：XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象。
+            error: function (data) {
+                console.log(data);// 打印错误信息
+            }
+        });
+    }
+</script>

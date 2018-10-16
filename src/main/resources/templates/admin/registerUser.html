@@ -49,13 +49,13 @@
 				<label>账号（手机号）：</label>
 				<div id="accountId" class="pom-agile">
 					<span class="fa fa-mobile" aria-hidden="true"></span> <input
-						placeholder="uAccount" name="uAccount" class="account" type="text" id="account"
+						placeholder="Account" name="account" class="account" type="text" id="account"
                         th:onchange ="'javascript:ajaxRegister()'"  required>
 				</div>
 				<label>用户名：</label>
 				<div class="pom-agile">
 					<span class="fa fa-user-o" aria-hidden="true"></span> <input
-						placeholder="Username" name="uName" class="username"
+						placeholder="Username" name="username" class="username"
 						 type="text" required >
 
 				</div>
@@ -63,13 +63,13 @@
 				<label>密码：</label>
 				<div class="pom-agile" style="position: relative;">
 					<span class="fa fa-key" aria-hidden="true"></span> <input
-						placeholder="Password" name="Password" class="password"
+						placeholder="Password" name="password" class="password"
 						 type="password" required>
 				</div>
 				<label>验证密码：</label>
 				<div class="pom-agile" style="position: relative;">
 					<span class="fa fa-key" aria-hidden="true"></span> <input
-						placeholder="rePassword" name="rePassword" class="repassword"
+						placeholder="Reassword" name="repassword" class="repassword"
 						 type="password" required>
 				</div>
 				<div class="sub-w3l" align="right">
@@ -103,7 +103,6 @@
 					$("#accountId").append("<span> 帐号已经存在。请使用其它帐号！ </span>");
                     alert("帐号已经存在。请使用其它帐号！");
                     //定焦
-					fys="error";
                     $("#account").focus();
                 }
                 else {

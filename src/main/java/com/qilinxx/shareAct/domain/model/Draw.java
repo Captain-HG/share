@@ -12,6 +12,9 @@ public class Draw {
     @Column(name = "d_u_id")
     private String dUId;
 
+    @Column(name = "d_a_id")
+    private String dAId;
+
     @Column(name = "d_create_time")
     private Integer dCreateTime;
 
@@ -32,6 +35,14 @@ public class Draw {
 
     @Column(name = "d_backup")
     private String dBackup;
+
+    public String getdAId() {
+        return dAId;
+    }
+
+    public void setdAId(String dAId) {
+        this.dAId = dAId;
+    }
 
     public String getdId() {
         return dId;
@@ -110,6 +121,7 @@ public class Draw {
         return "Draw{" +
                 "dId='" + dId + '\'' +
                 ", dUId='" + dUId + '\'' +
+                ", dAId='" + dAId + '\'' +
                 ", dCreateTime=" + dCreateTime +
                 ", dUpdateTime=" + dUpdateTime +
                 ", dHadDraw=" + dHadDraw +

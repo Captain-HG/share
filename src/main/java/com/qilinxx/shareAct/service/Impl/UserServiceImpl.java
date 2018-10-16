@@ -33,17 +33,6 @@ public class UserServiceImpl implements UserService {
 		return userMapper.insert(user);
 	}
 
-
-	@Override
-	public boolean validateUser(String account) {
-		return false;
-	}
-
-	@Override
-	public User login(User form) {
-		return null;
-	}
-
 	@Override
 	public List<User> selectByAccountAndPassword(String account, String password) {
         User user=new User();
@@ -81,18 +70,61 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String  update(User user) {
-		userMapper.updateByPrimaryKeySelective(user);
-		return "更新了:"+user.getuName();
+	public String update(User user) {
+	return "更新了"+userMapper.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
-	public String  changePassword(String uId, String newPassword) {
+	public void changePassword(String uId, String newPassword) {
 		User user = userMapper.selectByPrimaryKey(uId);
 		user.setuPassword(newPassword);
 		userMapper.updateByPrimaryKeySelective(user);
-       return "更改了用户:"+user.getuName()+"的密码";
+	}
+   //-----------------------------login---------------------------------
+	public User getUserByGuid(String guid){
+		return userMapper.selectByPrimaryKey(guid);
+	}
+
+	public boolean validateUser(String account){
+		User user = userMapper.selectByAccount(account);
+		if(user==null){
+			return false;
+		}
+		return true;
+	}
+
+	public User login(User form) throws UserException {//登录方法
+		User user = userMapper.selectByAccount(form.getuAccount());
+		if(user==null){
+			throw new UserException("账号不存在！");
+		}
+		if(!user.getuPassword().equals(form.getuPassword())){
+			throw new UserException("密码错误！");
+		}
+		return user;
 	}
 
 
+	@Override
+	public User register(String account,String password,String username) throws UserException{//注册方法
+
+		User u=userMapper.selectByAccount(account);
+		if(u!=null){
+			throw new UserException("该账号已被注册！");
+		}
+		User user = new User();
+		user.setuId(UUID.UU32());
+		user.setuAccount(account);
+		user.setuPassword(password);
+		user.setuName(username);
+		user.setuCreateTime(DateKit.getCurrentUnixTime());
+		user.setuState("1");
+		userMapper.insert(user);
+		return user;
+	}
+
+	public void updateInviterUserCounts(String inviterGuid){//更新邀请者，已邀请的人数
+
+//		userMapper.updateUserByGuid(inviterGuid);
+	}
 }

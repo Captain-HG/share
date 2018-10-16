@@ -2,21 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!-- templatemo 418 form pack -->
-    <!--
-    Form Pack
-    http://www.templatemo.com/preview/templatemo_418_form_pack
-    -->
     <title>分享页面</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/templatemo_style.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="js/jquery-1.11.0.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/templatemo_style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/jquery-1.11.0.js"></script>
     <style type="text/css">
         table {
             table-layout: fixed;
@@ -28,8 +23,6 @@
             text-overflow: ellipsis;
         }
     </style>
-
-
 
     <script type="text/javascript">
         $(function() {
@@ -71,9 +64,9 @@
             </tr>
             <tr>
                 <td>二维码：</td>
-                <td style="white-space:nowrap"><img th:src="@{qrcode(content=${guid})}" /></td>
+                <td style="white-space:nowrap"><img th:src="@{qrcode(content=${guid},act=${act})}" /></td>
                 <td class="text-right">
-                    <a th:href="@{qrcode(content=${guid})}" download="qrcode.png"><button id="id2" class="btn btn-info">下载</button></a>
+                    <a th:href="@{qrcode(content=${guid},act=${act})}" download="qrcode.png"><button id="id2" class="btn btn-info">下载</button></a>
                 </td>
             </tr>
             </tbody>

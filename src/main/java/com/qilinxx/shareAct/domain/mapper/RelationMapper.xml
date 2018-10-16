@@ -70,4 +70,7 @@
   <sql id="Base_Column_List">
     r_id, r_u_id, r_i_id, r_a_id, r_create_time, r_backup
   </sql>
+<select id="selectAllByInviteId" resultMap="BaseResultMap">
+  SELECT * FROM relation WHERE r_u_id=#{uid}
+</select>
 </mapper>

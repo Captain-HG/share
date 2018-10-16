@@ -673,6 +673,76 @@ public class DrawExample {
             addCriterion("d_backup not between", value1, value2, "dBackup");
             return (Criteria) this;
         }
+
+        public Criteria andDAIdIsNull() {
+            addCriterion("d_a_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdIsNotNull() {
+            addCriterion("d_a_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdEqualTo(String value) {
+            addCriterion("d_a_id =", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdNotEqualTo(String value) {
+            addCriterion("d_a_id <>", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdGreaterThan(String value) {
+            addCriterion("d_a_id >", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdGreaterThanOrEqualTo(String value) {
+            addCriterion("d_a_id >=", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdLessThan(String value) {
+            addCriterion("d_a_id <", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdLessThanOrEqualTo(String value) {
+            addCriterion("d_a_id <=", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdLike(String value) {
+            addCriterion("d_a_id like", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdNotLike(String value) {
+            addCriterion("d_a_id not like", value, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdIn(List<String> values) {
+            addCriterion("d_a_id in", values, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdNotIn(List<String> values) {
+            addCriterion("d_a_id not in", values, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdBetween(String value1, String value2) {
+            addCriterion("d_a_id between", value1, value2, "dAId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDAIdNotBetween(String value1, String value2) {
+            addCriterion("d_a_id not between", value1, value2, "dAId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

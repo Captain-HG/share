@@ -1,0 +1,232 @@
+<!DOCTYPE HTML >
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>注册页面</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords"
+          content="Simple Signin Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements"/>
+
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"
+          type="text/css" media="all"/>
+    <!-- Style-CSS -->
+    <link rel="stylesheet" th:href="@{/css/font-awesome.css}">
+    <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
+    <!-- web-fonts -->
+    <link href="//fonts.googleapis.com/css?family=Play:400,700"
+          rel="stylesheet">
+    <link
+            href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+            rel="stylesheet">
+    <!-- //web-fonts -->
+    <script type="text/javascript"
+            th:src="@{/js/jquery-1.11.0.js}"></script>
+    <style>
+        .onError {
+            background: #FFE0E9 url(images/reg3.gif) no-repeat 0 center;
+            padding-left: 25px;
+        }
+
+        .onSuccess {
+            background: #E9FBEB url(images/reg4.gif) no-repeat 0 center;
+            padding-left: 25px;
+            color: #D60026;
+        }
+    </style>
+
+
+    <script>
+        $(function () {
+
+            function createXMLHttpRequest() {//创建XMLHttpRequest的对象的方法
+                try {
+                    return new XMLHttpRequest();//大多数浏览器
+                } catch (e) {
+                    try {
+                        return ActvieXObject("Msxml2.XMLHTTP");//IE6.0
+                    } catch (e) {
+                        try {
+                            return ActvieXObject("Microsoft.XMLHTTP");//IE5.5及更早版本
+                        } catch (e) {
+                            alert("哥们儿，您用的是什么浏览器啊？");
+                            throw e;
+                        }
+                    }
+                }
+            }
+
+            $(":input").blur(function () {
+                $parent = $(this).parent();
+                var value = $(this).val().trim();
+                $parent.find(".msg").remove();
+                var flag = 0;
+
+                if ($(this).is(".account")) {
+                    var relValue = $(this).val();
+                    var testName = /^1[3578]\d{9}$/;
+                    var text = "flase";
+                    if (value.length == 11) {
+                        var xmlHttp = createXMLHttpRequest();
+                        xmlHttp.open("post", "validateUser", true);
+                        xmlHttp.setRequestHeader("Content-Type",
+                            "application/x-www-form-urlencoded");
+                        xmlHttp.send("account=" + value);
+
+                        xmlHttp.onreadystatechange = function () {
+                            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                                text = xmlHttp.responseText;
+                                $(".account").parent().find(".msg").remove();
+                                if (text == "true") {
+                                    var errorMsg = "此账号已存在！";
+                                    $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                                } else {
+                                    if (testName.test(value) && value.length == relValue.length) {
+                                        var okMsg = "格式正确";
+                                        $parent.append("<span class='msg onSuccess'>" + okMsg + "</span>");
+                                    } else {
+                                        var errorMsg = "号码格式错误";
+                                        $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                                    }
+                                }
+                            }
+                        };
+
+                    } else {
+                        var errorMsg = "号码格式错误";
+                        $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                    }
+                }
+
+                if ($(this).is(".username")) {
+                    var relValue = $(this).val();
+                    var testName = /[~#^$@%&!*()<>:;'"{}【】\s=+-]/;
+                    if (value == "" || value.length < 1 || value.length > 10 || testName.test(value) || value.length != relValue.length) {
+                        var errorMsg = "用户名1—10位，不包含特殊字符";
+                        $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                    } else {
+                        var okMsg = "格式正确";
+                        $parent.append("<span class='msg onSuccess'>" + okMsg + "</span>");
+                    }
+                }
+                if ($(this).is(".password")) {
+                    var relValue = $(this).val();
+                    if (value == "" || value.length < 3 || value.length > 16 || value.indexOf(" ") >= 0 || value.length != relValue.length) {
+                        var errorMsg = "密码3—16位,不包含空格";
+                        $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                    } else {
+                        var okMsg = "格式正确";
+                        $parent.append("<span class='msg onSuccess'>" + okMsg + "</span>");
+                    }
+                    flag++;
+                }
+                if ($(this).is(".password") && flag != 0) {
+                    $(".repassword").triggerHandler("blur");
+                }
+                if ($(this).is(".repassword")) {
+                    if ($(".password").val() != (value)) {
+                        var errorMsg = "两次密码不一致";
+                        $parent.append("<span class='msg onError'>" + errorMsg + "</span>");
+                    } else {
+                        var okMsg = "两次密码一致";
+                        $parent.append("<span class='msg onSuccess'>" + okMsg + "</span>");
+                    }
+                }
+            }).keyup(function () {
+                $(this).triggerHandler("blur");
+
+            });
+
+
+            $("#submit").click(function () {
+                //trigger 事件执行完后，浏览器会为submit按钮获得焦点
+                $("form .required:input").trigger("blur");
+                var numError = $("form .onError").length;
+                if (numError) {
+                    alert("请正确填写表单！");
+                    return false;
+                }
+                alert("成功提交表单");
+
+            });
+
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+
+        });
+
+    </script>
+</head>
+
+<body>
+<!--header-->
+<div class="header-w3l">
+    <h1>
+        <span style="color: #125acd">薅羊毛</span>
+    </h1>
+</div>
+<!--//header-->
+<div class="main-content-agile">
+    <div class="sub-main-w3">
+        <h2>新用户注册</h2>
+        <div id="registerid" style="opacity: 0" th:text="${registerMsg}"></div>
+        <form th:action="registerSure" method="post">
+            <label>账号（手机号）：</label>
+            <div class="pom-agile">
+                <span class="fa fa-mobile" aria-hidden="true"></span> <input
+                    placeholder="Account" name="account" class="account" type="text"
+                    required>
+            </div>
+            <label>姓名：</label>
+            <div class="pom-agile">
+                <span class="fa fa-user-o" aria-hidden="true"></span> <input
+                    placeholder="Username" name="username" class="username"
+                    type="text" required>
+            </div>
+            <label>密码：</label>
+            <div class="pom-agile" style="position: relative;">
+                <span class="fa fa-key" aria-hidden="true"></span> <input
+                    placeholder="Password" name="password" class="password"
+                    type="password" required>
+            </div>
+            <label>验证密码：</label>
+            <div class="pom-agile" style="position: relative;">
+                <span class="fa fa-key" aria-hidden="true"></span> <input
+                    placeholder="Reassword" name="repassword" class="repassword"
+                    type="password" required>
+            </div>
+            <div class="sub-w3l" align="right">
+                <a href="login">已有账号，去登陆</a>
+            </div>
+            <input type="text" name="key" style="opacity:0; " th:value="${key}"/>
+            <div class="right-w3l">
+                <input id="submit" type="submit" value="立即注册">
+            </div>
+        </form>
+    </div>
+</div>
+<!--//main-->
+<!--footer-->
+<div class="footer">
+    <p>
+        本平台适用于网络营销与宣传 | 详情请咨询 <a href="http://www.qilinxx.com/">麒麟信息</a>
+    </p>
+</div>
+<!--//footer-->
+</body>
+<script type="text/javascript">
+    console.log($("#registerid").text());
+    if ($("#registerid").text() != "") {
+        alert($("#registerid").text());
+    }
+</script>
+</html>
