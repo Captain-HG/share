@@ -2,13 +2,14 @@ package com.qilinxx.shareAct.service;
 
 
 import com.qilinxx.shareAct.domain.model.Activity;
+import com.qilinxx.shareAct.domain.model.User;
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
 
 import java.util.List;
 
 public interface ActivityService {
     /** 查找所有的活动 vo*/
-    List<ActivityVO> selectAll();
+    List<ActivityVO> selectAllActivityVO();
     /** 审核通过该活动*/
     String startActivity(String aId);
     /** 取消该活动*/
@@ -23,4 +24,6 @@ public interface ActivityService {
     String  updateActivity(Activity activity);
     /** 增加活动*/
     String  insertActivity(Activity activity);
+    /** 查询所有活动*/
+    List<Activity> selectAll();
 }

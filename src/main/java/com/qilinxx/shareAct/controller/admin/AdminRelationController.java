@@ -22,9 +22,7 @@ public class AdminRelationController {
      */
    @RequestMapping("admin-relation-list.html")
     public String relationList(Model model){
-       List<Relation> relationList = relationService.selectAll();
-       model.addAttribute("relationList",relationList);
-       model.addAttribute("comons",new Commons());
+      relationService.selectAllRelationVO();
        return "admin/relation-list";
    }
 }

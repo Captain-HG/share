@@ -1,8 +1,12 @@
 package com.qilinxx.shareAct.service.Impl;
 
 
+import com.qilinxx.shareAct.domain.mapper.ActivityMapper;
 import com.qilinxx.shareAct.domain.mapper.RelationMapper;
+import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Relation;
+import com.qilinxx.shareAct.domain.model.User;
+import com.qilinxx.shareAct.domain.model.vo.LRelationVO;
 import com.qilinxx.shareAct.domain.vo.RelationVo;
 import com.qilinxx.shareAct.service.RelationService;
 import com.qilinxx.shareAct.service.UserService;
@@ -21,6 +25,8 @@ public class RelationServiceImpl implements RelationService {
 
     @Autowired
     UserService userService;
+    @Autowired
+    ActivityMapper activityMapper;
 
     @Override
     public void addRelation(String uId, String iId, String aId) throws UserException {
@@ -59,5 +65,25 @@ public class RelationServiceImpl implements RelationService {
     @Override
     public List<Relation> selectAll() {
         return relationMapper.selectAll();
+    }
+
+    @Override
+    public List<LRelationVO> selectAllRelationVO() {
+        List<Relation> relationList = relationMapper.selectAll();
+        List<LRelationVO> lRelationVOs = new ArrayList<>();
+        for (Relation relation:relationList){
+           lRelationVOs.add(improve(relation));
+        }
+        return lRelationVOs;
+    }
+
+    private LRelationVO improve(Relation relation) {
+        LRelationVO lRelationVO = new LRelationVO();
+        Activity activity = activityMapper.selectByPrimaryKey(relation.getrAId());
+        lRelationVO.setActivity(activity);
+        lRelationVO.setRelation(relation);
+        User userI = userService.selectById(relation.getrUId());//邀请者
+        lRelationVO.setUser(userI);
+        return lRelationVO;
     }
 }

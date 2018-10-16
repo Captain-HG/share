@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 public class AdminActivityController {
     @Autowired
-    ActivityService activityServie;
+    ActivityService activityService;
     @Autowired
     ProvideService provideService;
 
@@ -37,7 +37,7 @@ public class AdminActivityController {
      */
     @RequestMapping("admin-activity-list.html")
     public  String provideList(Model model){
-        List<ActivityVO> activityVOList = activityServie.selectAll();
+        List<ActivityVO> activityVOList = activityService.selectAllActivityVO();
         model.addAttribute("activityVOList",activityVOList);
         model.addAttribute("commons",new Commons());
         return "admin/activity-list";
@@ -51,7 +51,7 @@ public class AdminActivityController {
     @RequestMapping("admin-startActivity")
     @ResponseBody
     public String startActivity(String aId, HttpServletRequest request) {
-        String str = activityServie.startActivity(aId);
+        String str = activityService.startActivity(aId);
         // System.out.println("传过来的语句："+str);
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
@@ -65,7 +65,7 @@ public class AdminActivityController {
     @RequestMapping("admin-stopActivity")
     @ResponseBody
     public String stopActivity(String aId, HttpServletRequest request) {
-        String str = activityServie.stopActivity(aId);
+        String str = activityService.stopActivity(aId);
         // System.out.println("传过来的语句："+str);
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
@@ -78,7 +78,7 @@ public class AdminActivityController {
     @RequestMapping("admin-successActivity")
     @ResponseBody
     public String successActivity(String aId, HttpServletRequest request) {
-        String str = activityServie.successActivity(aId);
+        String str = activityService.successActivity(aId);
         // System.out.println("传过来的语句："+str);
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
@@ -91,7 +91,7 @@ public class AdminActivityController {
     @RequestMapping("admin-examineActivity")
     @ResponseBody
     public String examineActivity(String aId, HttpServletRequest request) {
-        String str = activityServie.examineActivity(aId);
+        String str = activityService.examineActivity(aId);
         // System.out.println("传过来的语句："+str);
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
@@ -105,7 +105,7 @@ public class AdminActivityController {
      */
     @RequestMapping("admin-activity-edit.html")
     public String editActivityUi(String aId,Model model){
-        ActivityVO activityVO = activityServie.selectById(aId);
+        ActivityVO activityVO = activityService.selectById(aId);
         List<Provide> provideList = provideService.selectAll();
         model.addAttribute("activityVO",activityVO);
         model.addAttribute("commons",new Commons());
@@ -138,7 +138,7 @@ public class AdminActivityController {
             activity.setaEndTime(endTime);
             activity.setaPId(pId);
             activity.setaUrl(aUrl);
-            activityServie.updateActivity(activity);
+            activityService.updateActivity(activity);
             return "success";
         }
     }
@@ -173,7 +173,7 @@ public class AdminActivityController {
             activity.setaEndTime(endTime);
             activity.setaPId(pId);
             activity.setaUrl("http://"+aUrl);
-            activityServie.insertActivity(activity);
+            activityService.insertActivity(activity);
             return "success";
         }
     }

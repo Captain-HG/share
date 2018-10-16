@@ -25,7 +25,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     ProvideMapper provideMapper;
     @Override
-    public List<ActivityVO> selectAll() {
+    public List<ActivityVO> selectAllActivityVO() {
         List<Activity> activityList = activityMapper.selectAll();
         List<ActivityVO> activityVOArrayList = new ArrayList<>();
         for(Activity act:activityList){
@@ -99,5 +99,10 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setaState("0");
         activityMapper.insert(activity);
         return "增加了:"+activity.getaName()+"这项活动，等待审核" ;
+    }
+
+    @Override
+    public List<Activity> selectAll() {
+        return activityMapper.selectAll();
     }
 }
