@@ -1,10 +1,13 @@
 package com.qilinxx.shareAct.controller.admin;
 
 
+import com.qilinxx.shareAct.domain.model.Activity;
+import com.qilinxx.shareAct.domain.model.Provide;
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
 import com.qilinxx.shareAct.service.ActivityService;
 import com.qilinxx.shareAct.service.ProvideService;
 import com.qilinxx.shareAct.util.Commons;
+import com.qilinxx.shareAct.util.DateKit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -100,16 +104,77 @@ public class AdminActivityController {
      * @return 编辑页面
      */
     @RequestMapping("admin-activity-edit.html")
-    public String editActivity(String aId,Model model){
+    public String editActivityUi(String aId,Model model){
         ActivityVO activityVO = activityServie.selectById(aId);
+        List<Provide> provideList = provideService.selectAll();
         model.addAttribute("activityVO",activityVO);
         model.addAttribute("commons",new Commons());
+        model.addAttribute("provideList",provideList);
         return "admin/activity-edit";
     }
+
+    /**
+     * 编辑更新活动
+     * @param
+     * @return
+     */
     @RequestMapping("admin-updateActivity")
     @ResponseBody
-    public  String  updateActivity(ActivityVO activityVO){
+    public  String  updateActivity(String aName,String pId, String aStartTime,String aEndTime,String aId,String aDetail,String aUrl){
+       System.out.println(aName+pId+aStartTime+aEndTime+aId+aDetail);
 
-        return "success";
+        Date startDate = DateKit.dateFormat1(aStartTime);
+        int startTime = DateKit.getUnixTimeByDate(startDate);
+        Date endDate = DateKit.dateFormat1(aEndTime);
+        int endTime = DateKit.getUnixTimeByDate(endDate);
+        if (endTime <= startTime){
+            return "时间输入先后有无，请重填";
+        }else {
+            Activity activity = new Activity();
+            activity.setaId(aId);
+            activity.setaDetail(aDetail);
+            activity.setaName(aName);
+            activity.setaStartTime(startTime);
+            activity.setaEndTime(endTime);
+            activity.setaPId(pId);
+            activity.setaUrl(aUrl);
+            activityServie.updateActivity(activity);
+            return "success";
+        }
+    }
+
+    /**
+     * 页面跳转
+     * @param model 传递
+     * @return 增加页面
+     */
+    @RequestMapping("admin-activity-add.html")
+    public  String  addActivityUi(Model model){
+        List<Provide> provideList = provideService.selectAll();
+        model.addAttribute("provideList",provideList);
+        return "admin/activity-add";
+    }
+    @RequestMapping("admin-addActivity")
+    @ResponseBody
+    public String addActivity(String aName,String pId, String aStartTime,String aEndTime,String aDetail,String aUrl) {
+       System.out.println(aName+pId+aStartTime+aEndTime+aDetail);
+        Date startDate = DateKit.dateFormat1(aStartTime);
+        int startTime = DateKit.getUnixTimeByDate(startDate);
+        Date endDate = DateKit.dateFormat1(aEndTime);
+        int endTime = DateKit.getUnixTimeByDate(endDate);
+        if (endTime <= startTime){
+            return "时间输入先后有无，请重填";
+        }
+        else {
+            Activity activity = new Activity();
+            activity.setaDetail(aDetail);
+            activity.setaName(aName);
+            activity.setaStartTime(startTime);
+            activity.setaEndTime(endTime);
+            activity.setaPId(pId);
+            activity.setaUrl("http://"+aUrl);
+            activityServie.insertActivity(activity);
+            return "success";
+        }
     }
 }

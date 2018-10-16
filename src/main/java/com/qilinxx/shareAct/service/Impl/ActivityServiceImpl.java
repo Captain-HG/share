@@ -6,12 +6,18 @@ import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Provide;
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
 import com.qilinxx.shareAct.service.ActivityService;
+import com.qilinxx.shareAct.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Auther: lzc
+ * @Date: 2018/10/16 09:37
+ * @Description:
+ */
 @Service
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
@@ -78,5 +84,20 @@ public class ActivityServiceImpl implements ActivityService {
         Activity activity = activityMapper.selectByPrimaryKey(aId);
         ActivityVO activityVO = improve(activity);
         return activityVO;
+    }
+
+    @Override
+    public String updateActivity(Activity activity) {
+        activity.setaState("0");
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return "更新了:"+activity.getaName()+"的内容,等待重新审核";
+    }
+
+    @Override
+    public String insertActivity(Activity activity) {
+        activity.setaId(UUID.UU32());
+        activity.setaState("0");
+        activityMapper.insert(activity);
+        return "增加了:"+activity.getaName()+"这项活动，等待审核" ;
     }
 }

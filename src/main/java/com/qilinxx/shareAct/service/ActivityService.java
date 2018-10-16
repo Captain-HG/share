@@ -1,6 +1,7 @@
 package com.qilinxx.shareAct.service;
 
 
+import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.vo.ActivityVO;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface ActivityService {
     String examineActivity(String aId);
     /** 根据id查询活动对象*/
     ActivityVO selectById(String aId);
+    /** 编辑更新活动内容*/
+    String  updateActivity(Activity activity);
+    /** 增加活动*/
+    String  insertActivity(Activity activity);
 }

@@ -31,37 +31,67 @@
 <body>
 <article class="page-container">
 	<div class="Huiform">
-	<form class="form form-horizontal" id="form-article-add" action="admin-provideUpdate" th:method="post" >
+	<form class="form form-horizontal" id="form-article-add" action="admin-updateActivity" th:method="post">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商家名：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" th:value="${provide.pName}" placeholder="" id="pName" name="pName">
+				<input type="text" class="input-text" th:value="${activityVO.activity.aName}" placeholder="" id="aName" name="aName">
 			</div>
+		</div>
+		<!--<div class="row cl">-->
+			<!--<label class="form-label col-xs-4 col-sm-2">举办的商家名：</label>-->
+			<!--<div class="formControls col-xs-5 col-sm-5">-->
+				<!--<input type="text" class="input-text" th:value="${activityVO.provide.pName}" placeholder="" id="pName" name="pName" >-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>举办的商家名：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select name="pId" class="select" >
+					<option th:value="${activityVO.provide.pId}" th:text="${activityVO.provide.pName}"></option>
+					<option th:each="provide,interStart:${provideList}" th:value="${provide.pId}" th:text="${provide.pName}"></option>
 
-
+				</select>
+				</span> </div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">账号：</label>
-			<div class="formControls col-xs-5 col-sm-5">
-				<input type="text" class="input-text" th:value="${provide.pAccount}" placeholder="" id="pAccount" name="pAccount" >
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">商家地址：</label>
-			<div class="formControls col-xs-5 col-sm-5">
-				<input type="text" class="input-text" th:value="${provide.pAddress}" placeholder="" id="pAddress" name="pAddress" >
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">商家码：</label>
-			<div class="formControls col-xs-5 col-sm-5">
-				<input type="text" class="input-text" th:value="${provide.pPermitNumber}" placeholder="" id="pPermitNumber" name="pPermitNumber" >
-			</div>
-		</div>
+			<label class="form-label col-xs-4 col-sm-3">活动url：</label>
+			<div class="formControls col-xs-4 col-sm-1" style="padding-right: 0px">
 
+
+			</div>
+			<div class="formControls col-xs-4 col-sm-8" style="padding-left: 0px">
+				<input type="text" class="input-text" placeholder="http://www.kuding.com" name="aUrl" id="aUrl" th:value="${activityVO.activity.aUrl}" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动起始时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="aStartTime"
+					   th:value="${commons.fmtdate(activityVO.activity.aStartTime)}"
+					   onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm' })"
+					   id="aStartTime" class="input-text Wdate">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>活动截止时间：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="aEndTime"
+					   th:value="${commons.fmtdate(activityVO.activity.aEndTime)}"
+					   onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd HH:mm' })"
+					   id="aEndTime" class="input-text Wdate">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">活动简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="aDetail" id="aDetail" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入5个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,100)" th:text="${activityVO.activity.aDetail}"></textarea>
+				<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>-->
+			</div>
+		</div>
 		<div class="row cl">
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" id="pId" name="pId" class="input-text " th:value="${provide.pId}" th:hidden="true">
+				<input type="text" id="aId" name="aId" class="input-text " th:value="${activityVO.activity.aId}" th:hidden="true">
 			</div>
 		</div>
 		<div class="row cl">
@@ -91,32 +121,7 @@
 <script type="text/javascript" src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 
 <script type="text/javascript" th:inline="javascript">
-    var fys="true";
-    function ajaxRegister(){
-        var account = $("#uAccount").val();
-        var uId= $("#uId").val();
-        $.ajax({
-            url : "ajaxRegister",
-            data :{"account" : account,"uId":uId},
-            success: function(str) {
-                if ("true"!= str) {
-                                   //帐号已经存在
-                    //  $("#accountId").append("<span> 帐号已经存在。请使用其它帐号！ </span>");
-                    alert("帐号已经存在。请使用其它帐号！");
-                    //定焦
-                    fys="error";
-                    $("#mobile").focus();
 
-                }
-                else {
-                   // alert("未存在");
-                     fys="true";
-                    //账号未存在
-                    // $("#accountId span").remove();
-                }
-            }
-        });
-    }
     $('.skin-minimal input').iCheck({
         checkboxClass: 'icheckbox-blue',
         radioClass: 'iradio-blue',
@@ -125,44 +130,51 @@
 
         $("#form-article-add").validate({
             rules:{
-                pName :{
+                aName :{
                     required:true,
                     minlength:2,
                     maxlength:16
                 },
-                pAccount :{
-                    required:true,
-                    isMobile:true
+                pName :{
+                    required:true
+                },
+                aEndTime :{
+                    required:true
 				},
-                pAddress:{
+                aStartTime:{
+                  required:true
+				},
+                aDetail:{
                     required:true,
-                    minlength:6,
+                    minlength:5,
                     maxlength:16
-                },
-                pPermitNumber:{
+				},
+				aUrl:{
                     required:true,
-                    number:true,
-                    minlength:12,
-                    maxlength:12
-                },
+					url:true
+				},
+
 			},
             onkeyup:false,
             focusCleanup:true,
             success:"valid",
             submitHandler:function(form){
-                ajaxRegister();
-				alert("更新完成");
-                if (fys=="true") {
+
                     $("form").ajaxSubmit(function (data) {
-                        var index = parent.layer.getFrameIndex(window.name);
-                        parent.$('#btn-refresh').click();
-                        parent.layer.close(index);
+
+                        if (data=="success") {
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.$('#btn-refresh').click();
+                            parent.layer.close(index);
+                        }
+                        else {
+                            alert(data);
+                            // var index = parent.layer.getFrameIndex(window.name);
+                            // parent.$('#btn-refresh').click();
+                            // parent.layer.close(index);
+						}
                     });
-                }
-                else {
-                    alert("确认信息");
-                    return false;
-                }
+
             }
         });
 
