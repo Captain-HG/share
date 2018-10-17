@@ -26,4 +26,6 @@ public interface ActivityService {
     String  insertActivity(Activity activity);
     /** 查询所有活动*/
     List<Activity> selectAll();
+    /** 审核未通过*/
+    String NoExamineActivity(String aId);
 }

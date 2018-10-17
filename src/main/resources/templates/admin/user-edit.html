@@ -86,7 +86,7 @@
         var account = $("#uAccount").val();
         var uId= $("#uId").val();
         $.ajax({
-            url : "ajaxRegister",
+            url : "admin-ajaxRegister",
             data :{"account" : account,"uId":uId},
             success: function(str) {
                 if ("true"!= str) {
@@ -131,7 +131,7 @@
             success:"valid",
             submitHandler:function(form){
                 ajaxRegister();
-				alert("更新完成");
+				alert("确认提交");
                 if (fys=="true") {
                     $("form").ajaxSubmit(function (data) {
                         var index = parent.layer.getFrameIndex(window.name);
@@ -140,7 +140,8 @@
                     });
                 }
                 else {
-                    alert("请确认信息，出现问题");
+                    alert("帐号已经存在。请使用其它帐号！");
+
                     return false;
                 }
             }

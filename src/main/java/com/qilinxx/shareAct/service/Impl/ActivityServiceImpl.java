@@ -105,4 +105,12 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> selectAll() {
         return activityMapper.selectAll();
     }
+
+    @Override
+    public String NoExamineActivity(String aId) {
+        Activity activity = activityMapper.selectByPrimaryKey(aId);
+        activity.setaState("4");
+        activityMapper.updateByPrimaryKeySelective(activity);
+        return activity.getaName()+":这项活动,未通过审核";
+    }
 }

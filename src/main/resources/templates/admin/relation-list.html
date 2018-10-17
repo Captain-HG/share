@@ -29,28 +29,28 @@
 		<i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加关系','admin-relation-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加商家</a></span> <span class="r">共有数据：<strong th:text="${relationList.size()}">88</strong> 条</span> </div>
+		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加关系','#','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加关系</a></span> <span class="r">共有数据：<strong th:text="${lRelationVOS.size()}">88</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">序号</th>
-				<th>邀请者id</th>
-				<th width="80">被邀请者id</th>
-				<th width="100">活动的id</th>
+				<th>邀请者</th>
+				<th width="80">被邀请者</th>
+				<th width="100">活动名</th>
 				<th width="205">创建时间</th>
 				<!--<th width="120">操作</th>-->
 			</tr>
 		</thead>
 		<tbody>
-			<tr class="text-c" th:each="relation,interStart:${relationList}">
+			<tr class="text-c" th:each="relVO,interStart:${lRelationVOS}">
 				<td><input type="checkbox" value="{}" name=""></td>
 				<td th:text="${interStart.index+1}">1</td>
-				<td th:text="${relation.rUId}"></td>
-				<td th:text="${relation.rIId}">13000000000</td>
-				<td th:text="${relation.rAId}"></td>
-				<td th:text="${commons.fmtdate(relation.rCreateTime)}">2014-6-11 11:11:42</td>
+				<td  th:text="${relVO.user1 eq null}?'':${relVO.user1.uName}"></td>
+				<td th:text="${relVO.user2 eq null}?'':${relVO.user2.uName}"></td>
+				<td th:text="${relVO.activity.aName}"></td>
+				<td th:text="${commons.fmtdate(relVO.relation.rCreateTime)}">2014-6-11 11:11:42</td>
 				<!--<td class="td-manage">-->
 
 					<!--<a th:if="${provide.pState eq '1'}" style="text-decoration:none"-->

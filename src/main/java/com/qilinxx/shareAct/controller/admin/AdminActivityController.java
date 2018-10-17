@@ -96,7 +96,19 @@ public class AdminActivityController {
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
-
+    /**
+     * 审核此活动未通过
+     * @param aId  活动id
+     * @return 成功
+     */
+    @RequestMapping("admin-NoExamineActivity")
+    @ResponseBody
+    public String NoExamineActivity(String aId, HttpServletRequest request) {
+        String str = activityService.NoExamineActivity(aId);
+        // System.out.println("传过来的语句："+str);
+        //  logService.insertLog(str,userId(request),userIp(request));
+        return "success";
+    }
     /**
      * 跳转到编辑页面
      * @param aId 活动id

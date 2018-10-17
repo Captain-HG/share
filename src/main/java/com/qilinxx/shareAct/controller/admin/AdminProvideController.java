@@ -21,7 +21,7 @@ public class AdminProvideController {
     @Autowired
     ProvideService provideService;
     /**
-     * 用户列表
+     * 商家列表
      */
     @RequestMapping("admin-provide-list.html")
     public  String provideList(Model model){
@@ -51,7 +51,7 @@ public class AdminProvideController {
         return "success";
     }
     /**
-     * 禁用用户
+     * 禁用商家
      * @param pId 商家id
      * @return 成功
      */
@@ -65,7 +65,7 @@ public class AdminProvideController {
     }
 
     /**
-     * 开启用户
+     * 开启商家
      *
      * @param pId  商家id
      * @return 成功
@@ -78,6 +78,7 @@ public class AdminProvideController {
         //  logService.insertLog(str,userId(request),userIp(request));
         return "success";
     }
+
 
     /**
      * 跳转编辑页面

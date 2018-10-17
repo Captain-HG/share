@@ -37,7 +37,7 @@ public class ProvideServiceImpl implements ProvideService {
     @Override
     public String stopProvide(String pId) {
         Provide provide = provideMapper.selectByPrimaryKey(pId);
-        provide.setpState("0");
+        provide.setpState("2");
         provideMapper.updateByPrimaryKeySelective(provide);
         return "停用了:"+provide.getpName();
     }
@@ -76,6 +76,7 @@ public class ProvideServiceImpl implements ProvideService {
         provideMapper.insertSelective(provide);
         return "新增了商家:"+provide.getpName()+",等待审核";
     }
+
 
 
 

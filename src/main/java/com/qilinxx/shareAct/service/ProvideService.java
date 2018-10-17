@@ -26,4 +26,5 @@ public interface ProvideService {
     String  changePassword(String pId, String newPassword);
     /** 添加商家*/
     String  insertProvide(Provide provide);
+
 }

@@ -3,6 +3,7 @@ package com.qilinxx.shareAct.service.Impl;
 
 import com.qilinxx.shareAct.domain.mapper.ActivityMapper;
 import com.qilinxx.shareAct.domain.mapper.RelationMapper;
+import com.qilinxx.shareAct.domain.mapper.UserMapper;
 import com.qilinxx.shareAct.domain.model.Activity;
 import com.qilinxx.shareAct.domain.model.Relation;
 import com.qilinxx.shareAct.domain.model.User;
@@ -82,8 +83,32 @@ public class RelationServiceImpl implements RelationService {
         Activity activity = activityMapper.selectByPrimaryKey(relation.getrAId());
         lRelationVO.setActivity(activity);
         lRelationVO.setRelation(relation);
-        User userI = userService.selectById(relation.getrUId());//邀请者
-        lRelationVO.setUser(userI);
+//        if (relation.getrUId()!=null){
+//            User userUI = userService.selectById(relation.getrUId());//邀请者
+//            if (userUI==null){
+//                lRelationVO.setUser1(null);
+//            }
+//            else{
+//            lRelationVO.setUser1(userUI);
+//            }
+//
+//        }else {
+//            lRelationVO.setUser1(null);
+//        }
+//
+//        if(relation.getrIId()!=null){
+//         User userII=userService.selectById(relation.getrIId());
+//         if (userII==){
+//
+//         }
+//        }
+//        else{
+//            lRelationVO.setUser2(null);
+//        }
+        User userUI = userService.selectById(relation.getrUId());//邀请者
+        User userII = userService.selectById(relation.getrIId());//被邀请者
+        lRelationVO.setUser1(userUI);
+        lRelationVO.setUser2(userII);
         return lRelationVO;
     }
 }

@@ -32,4 +32,5 @@ public interface UserService {
     User getUserByGuid(String guid);                    // 通过guid查找出用户
     void updateInviterUserCounts(String inviterGuid);   //更新邀请者的邀请人数
     User register(String account,String password,String username) throws UserException;      //校验登录信息
+
 }

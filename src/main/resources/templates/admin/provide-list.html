@@ -55,15 +55,12 @@
 				<td th:text="${commons.fmtdate(provide.pCreateTime)}">2014-6-11 11:11:42</td>
 				<td th:text="${provide.pPermitNumber}"></td>
 				<td class="td-status" th:if="${provide.pState eq '1'}"><span class="label label-success radius">已启用</span></td>
-				<td class="td-status" th:unless="${provide.pState eq '1'}"><span class="label label-defaunt radius">已停用</span></td>
-
+				<td class="td-status" th:if="${provide.pState eq '0'}"><span class="label label-defaunt radius">待审核</span></td>
+				<td class="td-status" th:if="${provide.pState eq '2'}"><span class="label label-danger radius">已停用</span></td>
 				<td class="td-manage">
-
-					<a th:if="${provide.pState eq '1'}" style="text-decoration:none"
-					   th:onclick="'javascript:member_stop('+this+',\''+${provide.pId}+'\')'"
-																				 href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-
-					<a  th:unless="${provide.pState eq '1'}" style="text-decoration:none" th:onclick="'javascript:member_start('+this+',\''+${provide.pId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+					<a  th:if="${provide.pState eq '0'}" style="text-decoration:none" th:onclick="'javascript:member_start('+this+',\''+${provide.pId}+'\')'" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+					<a  th:if="${provide.pState eq '2'}" style="text-decoration:none" th:onclick="'javascript:member_edit(\''+重审前编辑+'\',\''+admin-provide-edit.html+'\',\''+${provide.pId}+'\',\''+''+'\',\''+510+'\');'" href="javascript:;" title="重新审核"><i class="Hui-iconfont">&#xe6f6;</i></a>
+					<a  th:unless="${provide.pState eq '2'}" style="text-decoration:none" th:onclick="'javascript:member_stop('+this+',\''+${provide.pId}+'\')'" href="javascript:;" title="停用/审核不通过"><i class="Hui-iconfont">&#xe653;</i></a>
 					<!--onclick="member_edit('编辑','student-edit.html','4','','510')"-->
 					<a title="编辑" href="javascript:;"  th:onclick="'javascript:member_edit(\''+编辑+'\',\''+admin-provide-edit.html+'\',\''+${provide.pId}+'\',\''+''+'\',\''+510+'\');'" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
 					<a style="text-decoration:none" class="ml-5" href="javascript:;"  th:onclick="'javascript:change_password(\''+修改密码+'\',\''+admin-provide-change-password.html+'\',\''+${provide.pId}+'\',\''+600+'\',\''+270+'\')'" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a>
@@ -116,7 +113,7 @@ function member_add(title,url,w,h){
 function member_show(title,url,id,w,h){
 	layer_show(title,url+"?uid="+id,w,h);
 }
-/*用户-停用*/
+/*商家-停用*/
 function member_stop(obj,id){
     layer.confirm('确认要停用吗？',function(index){
 		$.ajax({

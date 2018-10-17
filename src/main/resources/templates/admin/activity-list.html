@@ -34,14 +34,14 @@
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
-				<th width="80">序号</th>
+				<th width="30">序号</th>
 				<th>活动名</th>
 				<th width="80">商家名</th>
 				<th width="80">商家地址</th>
-				<th width="205">创建时间</th>
-				<th width="205">结束时间</th>
+				<th width="185">创建时间</th>
+				<th width="185">结束时间</th>
 				<th width="80">活动地址</th>
-				<th width="100">发布状态</th>
+				<th width="80">发布状态</th>
 				<th width="120">操作</th>
 			</tr>
 		</thead>
@@ -59,8 +59,10 @@
 				<td class="td-status" th:if="${activityVo.getActivity().aState eq '1'}"><span class="label label-success radius">正在进行</span></td>
 				<td class="td-status" th:if="${activityVo.getActivity().aState eq '2'}"><span class="label label-info radius">已取消</span></td>
 				<td class="td-status" th:if="${activityVo.getActivity().aState eq '3'}"><span class="label label-primary radius">已完成</span></td>
+				<td class="td-status" th:if="${activityVo.getActivity().aState eq '4'}"><span class="label label-danger radius">未通过</span></td>
 				<td class="td-manage">
-					<a   style="text-decoration:none" th:onclick="'javascript:member_examination('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="重新审核"><i class="Hui-iconfont">&#xe6f6;</i></a>
+					<a  th:if="${activityVo.getActivity().aState eq '0'}" style="text-decoration:none" th:onclick="'javascript:member_NoExamination('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="审核未通过"><i class="Hui-iconfont">&#xe653;</i></a>
+					<a  th:unless="${activityVo.getActivity().aState eq '0'}" style="text-decoration:none" th:onclick="'javascript:member_examination('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="重新审核"><i class="Hui-iconfont">&#xe6f6;</i></a>
 					<a   style="text-decoration:none" th:onclick="'javascript:member_start('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="通过审核"><i class="Hui-iconfont">&#xe6e1;</i></a>
 					<a  style="text-decoration:none" th:onclick="'javascript:member_stop('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="取消活动"><i class="Hui-iconfont">&#xe631;</i></a>
 					<a   style="text-decoration:none" th:onclick="'javascript:member_success('+this+',\''+${activityVo.getActivity().aId}+'\')'" href="javascript:;" title="设置完成"><i class="Hui-iconfont">&#xe72b;</i></a>
@@ -130,6 +132,25 @@ function member_examination(obj,id){
         });
     });
 }
+/*活动-重审*/
+function member_NoExamination(obj,id){
+    layer.confirm('确认要审核不通过这项活动吗？',function(index){
+        $.ajax({
+            type: 'POST',
+            url: 'admin-NoExamineActivity?aId='+id,
+            success: function(data){
+                layer.msg('已设置!',{icon: 2,time:1000});
+                setTimeout(function(){
+                    window.location.reload();
+                }, 1000);
+
+            },
+            error:function(data) {
+                console.log(data.msg);
+            },
+        });
+    });
+}
 /*活动-停用*/
 function member_stop(obj,id){
     layer.confirm('确认要取消这活动吗？',function(index){
@@ -156,7 +177,7 @@ function member_success(obj,id){
             type: 'POST',
             url: 'admin-successActivity?aId='+id,
             success: function(data){
-                layer.msg('已设置!',{icon: 5,time:1000});
+                layer.msg('已设置!',{icon: 1,time:1000});
                 setTimeout(function(){
                     window.location.reload();
                 }, 1000);

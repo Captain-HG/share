@@ -9,16 +9,35 @@ import com.qilinxx.shareAct.domain.model.User;
  * @Author lzc
  */
 public class LRelationVO {
-    private User user;
+    private User user1;//邀请者
+    private User user2;//被邀请者
     private Activity activity;
     private Relation relation;
 
-    public User getUser() {
-        return user;
+    @Override
+    public String toString() {
+        return "LRelationVO{" +
+                "user1=" + user1 +
+                ", user2=" + user2 +
+                ", activity=" + activity +
+                ", relation=" + relation +
+                '}';
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public User getUser1() {
+        return user1;
+    }
+
+    public void setUser1(User user1) {
+        this.user1 = user1;
+    }
+
+    public User getUser2() {
+        return user2;
+    }
+
+    public void setUser2(User user2) {
+        this.user2 = user2;
     }
 
     public Activity getActivity() {
@@ -35,14 +54,5 @@ public class LRelationVO {
 
     public void setRelation(Relation relation) {
         this.relation = relation;
-    }
-
-    @Override
-    public String toString() {
-        return "RelationVO{" +
-                "user=" + user +
-                ", activity=" + activity +
-                ", relation=" + relation +
-                '}';
     }
 }

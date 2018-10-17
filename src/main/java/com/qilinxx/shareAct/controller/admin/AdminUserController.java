@@ -122,4 +122,28 @@ public class AdminUserController {
         userService.changePassword(uId,newPassword);
         return   "success";
     }
+    @RequestMapping("admin-ajaxRegister")
+    @ResponseBody
+    public String  ajaxRegister(String account,String uId){
+        String str="";
+        User user = userService.selectByAccount(account);
+        if (user==null){
+            str="true";
+        }
+        else{
+            if (uId!=null){
+                User userById = userService.selectById(uId);
+                if (userById.getuAccount().equals(account)){
+                    str="true";
+                }else {
+                    str="error";
+                }
+            }
+            else {
+                str="error";
+            }
+        }
+        return str;
+    }
+
 }

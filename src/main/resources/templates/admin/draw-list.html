@@ -19,7 +19,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>活动管理</title>
+<title>抽奖管理</title>
 </head>
 <body>
 <button id="btn-refresh" style="display: none"  onclick="refresh()">刷新</button>
@@ -37,12 +37,12 @@
 				<th width="80">序号</th>
 				<th>用户名</th>
 				<th width="80">活动名</th>
-				<th width="205">抽奖创建时间</th>
-				<th width="205">更新时间</th>
+				<th width="185">抽奖创建时间</th>
+				<th width="185">更新时间</th>
 				<th width="80">活动地址</th>
-				<th width="80">邀请人数</th>
-				<th width="80">总抽奖次数</th>
-				<th width="80">已抽奖次数</th>
+				<th width="60">邀请人数</th>
+				<th width="60">总抽奖次数</th>
+				<th width="60">已抽奖次数</th>
 				<th width="50">积分</th>
 
 			</tr>
@@ -87,7 +87,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,10]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0]}// 制定列不参与排序
 		]
 	});
 
